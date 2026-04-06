@@ -1,12 +1,15 @@
-import { useState } from 'react'
-
+import { useState } from 'react';
+import Search from './components/Search';
 
 function App() {
+ 
 
   return (
-    <p className='bg-red-200'> hi </p>
-     
-  )
+    <>
+      <Search />
+      
+    </>
+  );
 }
 
-export default App
+export default App;
