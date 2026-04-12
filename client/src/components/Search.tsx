@@ -1,62 +1,72 @@
-import React, { useState, useMemo, useCallback } from "react";
-import { Symptoms } from '../data/Symptoms';
+import { useState, useMemo } from "react";
+import { Symptoms } from "../data/Symptoms";
 
-// 1. Create a memoized button to prevent unnecessary re-paints
-const SymptomItem = React.memo(({ name, onClick }: { name: string, onClick: (s: string) => void }) => {
-  return (
-    <button onClick={() => onClick(name)} type='button' className="block p-2 hover:bg-gray-100 w-full text-left">
-      {name}
-    </button>
+
+function SelectedSymptopms( props : { selected: string[], setSelected: React.Dispatch<React.SetStateAction<string[]>> } ) {
+  const remove = (data: string) => props.setSelected(prev => prev.filter(symptom => symptom !== data));
+  const showSelected = (block: string, index: number) => <div className="flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-sm font-medium border border-amber-200 animate-in fade-in zoom-in duration-200" key={block}> <p  > {block} </p>  <button onClick={ () => remove(block)}className="bg-transparent text-amber-600 text-lg leading-none"> x </button></div>;
+  return(<div className="flex flex-col">
+        <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3"> Selected sympotms ({props.selected.length}):  </p>
+        <div className="flex flex-wrap gap-2 min-h-10 min-w-50 w-fit p-3 rounded-xl bg-white border border-slate-200 shadow-sm max-h-32 overflow-y-auto transition-all">
+         {props.selected.length === 0 ? (
+  <p className="text-sm text-slate-400 italic">Nothing selected</p>
+) : (
+  props.selected.map(showSelected)
+)}
+        </div>
+      </div>)
+  
+}
+
+function Input(props : { query: string; setQuery: (val: string) => void} ) {
+  return(
+     <div className="flex flex-col bg-slate-100 ">
+    <label className="block text-m font-medium text-slate-600 mb-1.5 ml-1" htmlFor="type"> Search Symptoms: </label>
+      <input placeholder="e.g. Headache, Fever..." className="w-100 h-12 px-4 rounded-xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all bg-white" maxLength={50} value={props.query} id="type" type="text"
+        onChange={(data) => props.setQuery(data.currentTarget.value)} />
+  </div>
+  )
+ 
+  
+}
+
+function SymptomList( props : { filteredlist : string[], alrdselected : string[], setSelected: React.Dispatch<React.SetStateAction<string[]>> }){
+
+  const Adding = (data: string) => {
+  props.setSelected(prev => 
+    prev.includes(data) ? prev : [...prev, data]
   );
-});
-
-export default function Search() {
-  const [query, setQuery] = useState<string>("");
-  const [selected, setSelected] = useState<string[]>([]);
-
-  const filtered = useMemo(() => {
-    if (query.trim() === "") return [];
-    return Symptoms
-      .filter(item => item.toLowerCase().includes(query.toLowerCase()))
-      .slice(0, 5);
-  }, [query]); // Removed 'selected' from here
-
-  const selecting = useCallback((data: string) => {
-    setSelected((prev) => (prev.includes(data) ? prev : [...prev, data]));
-  }, []);
-
-  const removeItem = (itemToRemove :string) => {
-  setSelected((prev) => prev.filter((item) => item !== itemToRemove));
 };
+  return(
+    <div className="absolute z-50 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200">
+      {props.filteredlist.map( (data, index) =>  <a className="block w-full text-left px-5 py-3 text-sm font-medium text-slate-700 hover:bg-amber-50 hover:text-amber-900 transition-colors border-b border-slate-50 last:border-none cursor-pointer"onClick={ () => Adding(data)} key={data}> { data }</a>)}
+    </div>
+  )
+}
+export default function Search() {
+
+  const [query, SetQuery] = useState<string>("");
+  const [selected, SetSelected] = useState<string[]>([]);
+ 
+  const queryWords = query.toLowerCase().split(" ").filter(word => word !== "");
+  const filteredList = Object.values(Symptoms).filter(symptom => {
+    const s = symptom.toLowerCase();
+    return queryWords.some(word => s.includes(word));
+  }).slice(0, 5);
+
 
   return (
-    <div className="p-4 max-w-md">
-      <input 
-        className="w-full p-3 border-2 border-gray-200 rounded-lg" 
-        placeholder="Type Symptoms here..."
-        type="search" 
-        value={query} 
-        onChange={(e) => setQuery(e.target.value)}
-      />
-
-      {/* List 1: Already Selected */}
-      <div className="mt-4">
-        <p className="text-sm font-bold">Selected:</p>
-        {selected.map((item, index) => (
-          <div key={index} className="bg-amber-600 ">
-            <span key={index + 1}  className="inline-block bg-blue-100 m-1 p-1 rounded">{item}</span>
-            <button onClick={() => removeItem(item)}type="button" key={index}> x </button>
-          </div>
-           
-        ))}
+    <div className="bg-slate-50 min-h-screen p-8 flex flex-col items-center justify-start">
+      <div className="w-full max-w-xl flex flex-col gap-8">
+      <SelectedSymptopms selected={selected} setSelected={SetSelected} />
+      <div className="relative">
+      <Input query={query} setQuery={SetQuery}/>
+      <SymptomList filteredlist={filteredList} alrdselected={selected} setSelected={SetSelected}/>
       </div>
-
-      {/* List 2: Filtered Results */}
-      <div className="mt-2 border rounded shadow-sm">
-        {filtered.map((data) => (
-          <SymptomItem key={data} name={data} onClick={selecting} />
-        ))}
-      </div>
+      
+    
     </div>
-  );
+    </div>
+    
+  )
 }
