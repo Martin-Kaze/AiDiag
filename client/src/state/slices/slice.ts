@@ -1,25 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    value : 0,
-    size : 0
+interface MyState {
+    selected: string[]; 
+}
+
+const initialState: MyState = {
+    selected: [] 
 };
 
 const dataSlice = createSlice({
     name: "some data",
     initialState,
     reducers : {
-        incrament : (state) => {
-            state.value += 1;
+        add : (state , action) => {
+        if( state.selected.includes(action.payload)){
+            console.log('already')
+        }
+        else{
+        state.selected = [... state.selected, action.payload ]
+        }
+         
         },
-        decrament : (state) => {
-            state.size += 1;
-        },
-        decramentbyammount : (state, action) => {
-            state.value -= action.payload
+        remove : (state, action) => {
+            state.selected = state.selected.filter( symptom => symptom !== action.payload)
         },
     }
 })
 
-export const { incrament, decrament, decramentbyammount} = dataSlice.actions;
+export const { add, remove} = dataSlice.actions;
 export default dataSlice.reducer;

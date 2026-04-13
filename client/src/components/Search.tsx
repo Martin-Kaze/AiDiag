@@ -1,17 +1,22 @@
 import { useState, useMemo } from "react";
 import { Symptoms } from "../data/Symptoms";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../state/store"
+import { add, remove } from "../state/slices/slice"
 
 
 function SelectedSymptopms( props : { selected: string[], setSelected: React.Dispatch<React.SetStateAction<string[]>> } ) {
-  const remove = (data: string) => props.setSelected(prev => prev.filter(symptom => symptom !== data));
-  const showSelected = (block: string, index: number) => <div className="flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-sm font-medium border border-amber-200 animate-in fade-in zoom-in duration-200" key={block}> <p  > {block} </p>  <button onClick={ () => remove(block)}className="bg-transparent text-amber-600 text-lg leading-none"> x </button></div>;
+const selected = useSelector( (state : RootState)=> state.SelectedModels.selected);
+const dispatch = useDispatch();
+  const removing = (data: string) => dispatch(remove(data));
+  const showSelected = (block: string, index: number) => <div className="flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-sm font-medium border border-amber-200 animate-in fade-in zoom-in duration-200" key={block}> <p  > {block} </p>  <button onClick={ () => removing(block)}className="bg-transparent text-amber-600 text-lg leading-none"> x </button></div>;
   return(<div className="flex flex-col">
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3"> Selected sympotms ({props.selected.length}):  </p>
         <div className="flex flex-wrap gap-2 min-h-10 min-w-50 w-fit p-3 rounded-xl bg-white border border-slate-200 shadow-sm max-h-32 overflow-y-auto transition-all">
-         {props.selected.length === 0 ? (
+         {selected.length === 0 ? (
   <p className="text-sm text-slate-400 italic">Nothing selected</p>
 ) : (
-  props.selected.map(showSelected)
+  selected.map(showSelected)
 )}
         </div>
       </div>)
@@ -31,11 +36,9 @@ function Input(props : { query: string; setQuery: (val: string) => void} ) {
 }
 
 function SymptomList( props : { filteredlist : string[], alrdselected : string[], setSelected: React.Dispatch<React.SetStateAction<string[]>> }){
-
+  const dispatch = useDispatch();
   const Adding = (data: string) => {
-  props.setSelected(prev => 
-    prev.includes(data) ? prev : [...prev, data]
-  );
+  dispatch(add(data));
 };
   return(
     <div className="absolute z-50 w-full mt-2 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200">
