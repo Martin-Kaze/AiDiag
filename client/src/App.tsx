@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import Search from './components/Search';
 
 
@@ -6,11 +6,15 @@ function App() {
  
 
   return (
-    <>
    
-  <Search />
+   <div className="app-container">
+
+    <Search />
+   
+
+    </div>
       
-    </>
+    
   );
 }
 

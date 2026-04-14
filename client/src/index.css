@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
-body {
-    display: flex;
+.app-container {
+  display: grid;
+  
 }
