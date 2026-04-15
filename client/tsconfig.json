@@ -1,14 +1,12 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "strict": true,
-    "forceConsistentCasingInFileNames": true
-    // ... other options
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    /* We removed baseUrl and ignoreDeprecations here */
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
+  "extends": "./tsconfig.app.json",
   "include": ["src"]
 }

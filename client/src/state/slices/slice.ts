@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface MyState {
+export interface MyState {
     selected: string[]; 
 }
 
 const initialState: MyState = {
-    selected: [] 
+    selected: [ ] 
 };
 
 const dataSlice = createSlice({

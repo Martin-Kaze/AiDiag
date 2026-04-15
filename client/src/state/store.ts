@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import SelecModelsReducer from './slices/slice';
+import SymptomsDeducer from './slices/slice';
+import PopupReduce from './slices/PopUpSlice';
 
 export const store = configureStore({
     reducer: {
-        SelectedModels : SelecModelsReducer
+        SymptomsReduce : SymptomsDeducer,
+        DispalyRecude : PopupReduce,
     }
 })
 // store.ts

@@ -1,18 +1,22 @@
-import { useState } from 'react';
-import Search from './components/Search';
 
+import Search from './components/Symptoms/Search';
+import RatingSymptom from './components/Rating/RatingSymptom';
 
 function App() {
  
 
   return (
    
-   <div className="app-container">
 
-    <Search />
+<>
+  { /* */}
+     <RatingSymptom/>
+    <Search /> 
+</>
    
+    
 
-    </div>
+
       
     
   );

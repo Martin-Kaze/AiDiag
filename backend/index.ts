@@ -1,9 +1,32 @@
 import "dotenv/config";
-import {GoogleGenAI} from '@google/genai';
-import { z } from "zod";
-import { zodToJsonSchema } from "zod-to-json-schema";
+import { fileURLToPath } from 'url';
+import path from 'path';
+import express, { type Request, type Response } from 'express';
+import cors from 'cors';
 
-const a = z.string().describe('test').meta();
+const app = express();
 
+if (process.env.NODE_ENV !== 'production') {
+  app.use(cors());
+}
 
-console.log(a);
+app.use(express.json())
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const distPath = path.join(__dirname, '../client/dist');
+
+app.use(express.static(distPath));
+app.get('/{*splat}', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
+});
+
+app.post( '/api/symptoms' , (req : Request, res : Response) => {
+console.log(req.body)
+});
+
+app.listen(3000, () => {
+  console.log(`Server running at http://localhost:3000`);
+});
+
