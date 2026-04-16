@@ -7,12 +7,12 @@ export default function CustSymp () {
   const [ data, setData ] = useState<string>("")
   const dispatch = useDispatch();
   
-    return ( <div className="[grid-area:custsymp] flex flex-col self-end gap-1.5 mt-2"> 
+    return ( <div className="flex flex-col justify-center items-center  "> 
 
     <label 
       htmlFor="custsymp" 
-      className="text-sm font-medium text-slate-700 ml-1"> 
-      Custom Symptom
+      className="block text-2xl font-medium mb-3"> 
+      Custom Symptom:
     </label>
     <input
           onChange={ (data) => {
@@ -26,8 +26,8 @@ export default function CustSymp () {
       id="custsymp" 
       type="text" 
       name="custsympt"
-      placeholder="Type how you feel here..."
-      className="border border-slate-200 rounded-xl h-22 w-110 px-4 focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
+      placeholder="Write here..."
+      className="input input-lg "
     />
   </div>
   )

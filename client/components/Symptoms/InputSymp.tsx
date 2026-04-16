@@ -1,18 +1,27 @@
 export function Input(props: { query: string; setQuery: (val: string) => void }) {
   return (
 
-        <div className="flex flex-col ">
+        <div className="flex flex-col justify-center items-center">
         <label
-        className="block text-m font-medium text-slate-600 mb-1.5 ml-1" 
+        className="block text-2xl font-medium mb-3" 
         htmlFor="type"> Search Symptoms: 
         </label>
 
-        <input 
-        placeholder="e.g. Headache, Fever..." 
-        className="w-100 h-12 px-4 rounded-xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all bg-white" maxLength={50} value={props.query} id="type" type="text"
-        onChange={(data) => props.setQuery(data.currentTarget.value)}
-         />
-         
+         <label className="input input-lg input-bordered flex items-center gap-2">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 16 16"
+    fill="currentColor"
+    className="h-4 w-4 opacity-70">
+    <path
+      fillRule="evenodd"
+      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+      clipRule="evenodd" />
+  </svg>
+  
+
+  <input type="text" className=" grow placeholder:opacity-0 sm:placeholder:opacity-100" placeholder="Search symptoms..." maxLength={50} onChange={(data) => props.setQuery(data.currentTarget.value)}/>
+</label>
     </div>
   )
 }

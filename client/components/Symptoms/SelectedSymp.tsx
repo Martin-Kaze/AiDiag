@@ -10,7 +10,7 @@ export function SelectedSymptopms(props: { selected: string[], setSelected: Reac
 
   const showSelected = (block: string) => 
   <div 
-  className="flex max-w-xs items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-sm font-medium border border-amber-200 animate-in fade-in zoom-in duration-200" 
+  className="flex max-w-[90%] items-center gap-1.5 bg-amber-100 text-amber-900 px-3 py-1 rounded-full text-sm font-medium border border-amber-200 animate-in fade-in zoom-in duration-200" 
   key={block}> 
   <p 
   className="truncate" 
@@ -23,14 +23,12 @@ export function SelectedSymptopms(props: { selected: string[], setSelected: Reac
     </button>
   </div>;
   
-  return (<div className="flex flex-col">
-    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3"> Selected sympotms ({props.selected.length}):  </p>
-    <div className="flex flex-wrap gap-2 min-h-10 min-w-50 w-fit p-3 rounded-xl bg-white border border-slate-200 shadow-sm max-h-32 overflow-y-auto transition-all">
-      {selected.length === 0 ? (
-        <p className="text-sm text-slate-400 italic">Nothing selected</p>
-      ) : (
-        selected.map(showSelected)
-      )}
+  return (<div className="pt-5 flex flex-col  place-self-center min-w-xs max-w-xs">
+    
+    <div className=" border-neutral rounded-xl flex flex-wrap gap-2 ">
+     
+        {selected.map(showSelected)}
+      
     </div>
   </div>)
 
