@@ -26,7 +26,7 @@ app.post( '/api/symptoms' , (req : Request, res : Response) => {
 console.log(req.body)
 });
 
-app.listen(3000, () => {
-  console.log(`Server running at http://localhost:3000`);
+app.listen(3500, () => {
+  console.log(`Server running at http://localhost:3500`);
 });
 

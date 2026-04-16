@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {remove } from "../../../../AiDiag/client/src/state/slices/slice"
+import { remove } from "@/state/slices/slice";
 import type { RootState } from "../../../../AiDiag/client/src/state/store"
 
 export function SelectedSymptopms(props: { selected: string[], setSelected: React.Dispatch<React.SetStateAction<string[]>> }) {

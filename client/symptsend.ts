@@ -4,7 +4,7 @@ const userSelected: UserSymptoms[] = [];
 
 const handleSubmit = async (data: any) => {
   try {
-    const response = await fetch('http://localhost:3000/api/symptoms', {
+    const response = await fetch('http://localhost:3500/api/symptoms', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

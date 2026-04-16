@@ -2,12 +2,17 @@ import { configureStore } from "@reduxjs/toolkit";
 import SymptomsDeducer from './slices/slice';
 import PopupReduce from './slices/PopUpSlice';
 
-export const store = configureStore({
+// 1. Wrap the store in a function
+export const makeStore = () => {
+  return configureStore({
     reducer: {
         SymptomsReduce : SymptomsDeducer,
         DispalyRecude : PopupReduce,
     }
-})
-// store.ts
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+  });
+};
+
+// 2. Derive types from the 'makeStore' function itself
+export type AppStore = ReturnType<typeof makeStore>;
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];

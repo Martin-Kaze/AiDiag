@@ -10,6 +10,7 @@
   default: true;
   prefersdark: false;
   color-scheme: "light";
+  --font-family: var(--font-redhat), sans-serif;
   --color-base-100: oklch(98.2% 0.008 75);
   --color-base-200: oklch(96% 0.015 75);
   --color-base-300: oklch(92% 0.02 75);
@@ -51,3 +52,7 @@
 @utility area-nav  { grid-area: nav; }
 @utility area-head { grid-area: head; }
 @utility area-body { grid-area: body; }
+
+body {
+  font-family: var(--font-redhat), sans-serif;
+}

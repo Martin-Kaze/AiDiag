@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { add} from "../../../../AiDiag/client/src/state/slices/slice"
+import { add } from "@/state/slices/slice";
 import { useState } from "react";
 
 export default function CustSymp () {

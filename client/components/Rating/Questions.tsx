@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react'
 import {  useDispatch } from "react-redux"
 import { off } from '@/state/slices/PopUpSlice';

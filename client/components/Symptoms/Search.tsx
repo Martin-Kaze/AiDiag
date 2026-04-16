@@ -1,5 +1,6 @@
+"use client";
 import { useState} from "react";
-import { Symptoms } from "../../../../AiDiag/client/src/data/Symptoms";
+import { Symptoms } from "@/data/Symptoms";
 import { useDispatch} from "react-redux";
 import { on } from "@/state/slices/PopUpSlice";
 import CustSymp from './CustSymp';

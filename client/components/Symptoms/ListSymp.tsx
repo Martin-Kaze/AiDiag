@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { add } from "../../../../AiDiag/client/src/state/slices/slice"
+import { add } from "@/state/slices/slice";
 
 export function SymptomList(props: { filteredlist: string[], alrdselected: string[], setSelected: React.Dispatch<React.SetStateAction<string[]>>, setQuery : React.Dispatch<React.SetStateAction<string>>}) {
 
