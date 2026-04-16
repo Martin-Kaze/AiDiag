@@ -24,23 +24,24 @@ export default function Search() {
 
 
   return (
-    <div 
-    className="[grid-area:mainsymp]  p-8 flex flex-col items-center justify-start">
+    
       <div 
-      className="w-full max-w-xl flex flex-col gap-8">
+      className="w-full max-w-xl flex flex-col gap-8 items-center ">
         <SelectedSymptopms selected={selected} setSelected={SetSelected} />
-        <div className="relative">
-          
+        <div className=" relative ">
           <Input query={query} setQuery={SetQuery} />
           <SymptomList filteredlist={filteredList} alrdselected={selected} setSelected={SetSelected} setQuery={SetQuery} />
           <CustSymp/>
-
-              <button onClick={ () => dispatch(on())}> Next </button>
+<div className="flex justify-center mt-8">
+<button  className="btn btn-wide btn-success "
+              onClick={ () => dispatch(on())}> Next </button>
+</div>
+              
         </div>
 
 
       </div>
-    </div>
+  
 
   )
 }
