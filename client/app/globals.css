@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+
+@plugin "daisyui" {
+  themes: royal-clinical;
+}
+
+@plugin "daisyui/theme" {
+  name: "royal-clinical";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(98.2% 0.008 75);
+  --color-base-200: oklch(96% 0.015 75);
+  --color-base-300: oklch(92% 0.02 75);
+  --color-base-content: oklch(25% 0.02 260);
+  --color-primary: oklch(35% 0.08 260);
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: oklch(45% 0.12 165);
+  --color-secondary-content: oklch(100% 0 0);
+  --color-accent: oklch(80% 0.12 85);
+  --color-accent-content: oklch(30% 0.05 85);
+  --color-neutral: oklch(30% 0.03 260);
+  --color-neutral-content: oklch(100% 0 0);
+  --color-info: oklch(65% 0.15 250);
+  --color-info-content: oklch(100% 0 0);
+  --color-success: oklch(60% 0.15 145);
+  --color-success-content: oklch(100% 0 0);
+  --color-warning: oklch(85% 0.18 90);
+  --color-warning-content: oklch(20% 0.05 80);
+  --color-error: oklch(55% 0.22 25);
+  --color-error-content: oklch(100% 0 0);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+@utility clinical-grid {
+  display: grid;
+  grid-template-areas: 
+    "nav head"
+    "nav body";
+  grid-template-columns: 200px 1fr;
+  min-height: 100vh;
+}
+
+@utility area-nav  { grid-area: nav; }
+@utility area-head { grid-area: head; }
+@utility area-body { grid-area: body; }
