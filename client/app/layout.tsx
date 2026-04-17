@@ -1,23 +1,22 @@
 import "./globals.css";
 import StoreProvider from "@/state/stateProvider";
+import { Public_Sans } from "next/font/google";
+import { cn } from "@/lib/utils";
 
-import { Red_Hat_Text } from "next/font/google";
-
-const redHat = Red_Hat_Text({
+const publicSans = Public_Sans({
   subsets: ["latin"],
-  display: "swap",
-  variable: "--font-redhat", // Creates a CSS variable
+  variable: "--font-sans",
 });
-
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="royal-clinical">
-      <body className={`bg-base-200 min-h-screen text-base-content ${redHat.variable} font-sans`}>
+
+    <html lang="en" className={cn("antialiased", publicSans.variable)}>
+
+      <body className="min-h-screen bg-background font-sans text-foreground">
         <StoreProvider>
-        {children}
+          {children}
         </StoreProvider>
-        
       </body>
     </html>
   );
