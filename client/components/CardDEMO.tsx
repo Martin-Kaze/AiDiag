@@ -12,17 +12,19 @@ import {
 
 export function CardDemo() {
   return (
-   <Card>
-  <CardHeader>
+   <Card className="bg-accent">
+  <CardHeader className="">
     <CardTitle>Card Title</CardTitle>
     <CardDescription>Card Description</CardDescription>
-    <CardAction>Card Action</CardAction>
+    <CardAction><Button> idk asdhasdhkhkasdhakjshd</Button>
+    </CardAction>
+    
   </CardHeader>
   <CardContent>
     <p>Card Content</p>
   </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
+  <CardFooter className="">
+   
   </CardFooter>
 </Card>
   )

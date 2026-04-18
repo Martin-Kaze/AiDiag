@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
     <html lang="en" className={cn("antialiased", publicSans.variable)}>
 
-      <body className="min-h-screen bg-background font-sans text-foreground">
+      <body className="min-h-screen bg-amber-50 font-sans text-foreground ">
         <StoreProvider>
           {children}
         </StoreProvider>
