@@ -16,9 +16,9 @@ import { MessageSquarePlus } from 'lucide-react'
 export function Menu () {
     return (
 
-<Menubar className="relative p-2 bg-background w-full">
+<Menubar className="relative p-2 bg-background w-full rounded-0">
   <MenubarMenu >
-    <MenubarTrigger className="border">Menu</MenubarTrigger>
+    <MenubarTrigger ><Logs/></MenubarTrigger>
     <MenubarContent>
       <MenubarGroup>
         <MenubarItem>

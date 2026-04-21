@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import SymptomsDeducer from './slices/slice';
 import PopupReduce from './slices/PopUpSlice';
+import ShowTextReducer from "./slices/ShowTextSlice"
 
 // 1. Wrap the store in a function
 export const makeStore = () => {
@@ -8,6 +9,7 @@ export const makeStore = () => {
     reducer: {
         SymptomsReduce : SymptomsDeducer,
         DispalyRecude : PopupReduce,
+        ShowTextRedue : ShowTextReducer,
     }
   });
 };
