@@ -2,6 +2,7 @@
 import { Button } from "../ui/button"
 import { useDispatch, useSelector } from "react-redux"
 import { TurnOn, TurnOff, SetTopic} from "@/state/slices/ShowTextSlice"
+import { increase } from "@/state/slices/ProgressSlice"
 import { cn } from "@/lib/utils"
 import { useRouter } from 'next/navigation';
 
@@ -18,6 +19,7 @@ export  function StartConvButton(props: {
       onClick={() => {
       dispatch(TurnOn());
       dispatch(SetTopic(props.topic));
+      dispatch(increase(10))
      
       }
     }

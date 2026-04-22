@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import SymptomsDeducer from './slices/slice';
+
 import PopupReduce from './slices/PopUpSlice';
 import ShowTextReducer from "./slices/ShowTextSlice"
-
+import ProgressReducer from "./slices/ProgressSlice"
 // 1. Wrap the store in a function
 export const makeStore = () => {
   return configureStore({
     reducer: {
-        SymptomsReduce : SymptomsDeducer,
+        ProgressReducer : ProgressReducer,
         DispalyRecude : PopupReduce,
         ShowTextRedue : ShowTextReducer,
     }

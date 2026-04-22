@@ -1,12 +1,22 @@
 "use client"
 import { Input } from "@/components/ui/input"
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useSelector , useDispatch } from "react-redux";
+import { increase } from "@/state/slices/ProgressSlice";
+import { useState , useEffect} from "react";
 import { cn } from "@/lib/utils";
 import { Bot } from "lucide-react";
-import TypeWriter from "../TypeWriter";
+import TypeWriter from "./TypeWriter";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation"
+
+
+
 export function InputBasic() {
+  const dispatch = useDispatch();
+    const router = useRouter()
+    useEffect(() => {
+    router.prefetch("/questions") // preload page
+  }, [])
 
   const [text, setText] = useState("");
   const showText = useSelector((state: any) => state.ShowTextRedue.show);
@@ -35,7 +45,13 @@ export function InputBasic() {
               }
           />
           <p className="text-neutral-500"> {ButtonText ? 'Keep it brief 150 characters max' : 'Your answer helps us personalise your experience'} </p>
-        <Button type="submit"> {ButtonText ? 'SUMMIT' : 'SKIP'} </Button>
+        <Button 
+        type="submit"
+        onClick={() => {
+            router.push("/questions");
+             dispatch(increase(10))
+        } }      
+        > {ButtonText ? 'SUMMIT' : 'SKIP'} </Button>
         
         </div>
       )}

@@ -1,9 +1,9 @@
 "use client"
 import { motion, AnimatePresence } from "framer-motion";
 import { useSelector } from "react-redux";
-import { StartConvButton } from "../Buttons/StartConvButton"
+import { StartConvButton } from "./StartConvButton";
 import { cn } from "@/lib/utils"
-import TypeWriter from "../TypeWriter";
+import TypeWriter from "./TypeWriter";
 import { Bot } from "lucide-react";
 export default function StartConvButtonGroup(){ 
   const topic = useSelector((state: any) => state.ShowTextRedue.topic);
@@ -31,6 +31,8 @@ export default function StartConvButtonGroup(){
           <StartConvButton topic="I need to know my body signals">"My body is sending signals" </StartConvButton>
 
           <p className="text-neutral-400"> Choose what you want</p>
+
+        
         </div>
            </>
       )}

@@ -1,10 +1,5 @@
-
-import StartConvButtonGroup from "@/components/FirstPage/StartConvButtonGroup";
 import { Menu } from "@/components/ForAllPage/Menu";
-import { InputBasic } from "@/components/FirstPage/InputBasic"; 
 import ProgressBar from "@/components/ForAllPage/ProgressBar";
-
-
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen w-full">
@@ -15,11 +10,8 @@ export default function Home() {
 
        
        
-        <StartConvButtonGroup/>
-
-        <InputBasic />
-
-        <ProgressBar/>
+            <ProgressBar/>
+        
         
       </main>
 
