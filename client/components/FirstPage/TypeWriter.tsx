@@ -10,7 +10,7 @@ export default function TypeWriter({ text }: { text: string }) {
 
   // useMemo prevents a "new" string reference from being created on every render
   const finalString = useMemo(() => {
-    return topic && topic !== "not selected" ? `You said "` +  `${topic}` + `", tell me more if you want` : text 
+    return topic && topic !== "not selected" ? `You said "` +  `${topic}` + `", please, explain.` : text 
   }, [text, topic]);
 
   useEffect(() => {

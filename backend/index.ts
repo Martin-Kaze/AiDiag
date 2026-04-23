@@ -1,32 +1,33 @@
-import "dotenv/config";
-import { fileURLToPath } from 'url';
-import path from 'path';
-import express, { type Request, type Response } from 'express';
-import cors from 'cors';
+import { GoogleGenAI } from "@google/genai";
+import { z } from "zod";
+import process from "node:process";
 
-const app = express();
 
-if (process.env.NODE_ENV !== 'production') {
-  app.use(cors());
-}
+process.loadEnvFile();
 
-app.use(express.json())
+const genAI = new GoogleGenAI({ apiKey: process.env.API_KEY! });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const distPath = path.join(__dirname, '../client/dist');
-
-app.use(express.static(distPath));
-app.get('/{*splat}', (req, res) => {
-  res.sendFile(path.join(distPath, 'index.html'));
+const Address = z.object({
+  street: z.string(),
+  city: z.string(),
 });
 
-app.post( '/api/symptoms' , (req : Request, res : Response) => {
-console.log(req.body)
+const Person = z.object({
+  homeAddress: Address,
+  workAddress: Address,
+  name: z.string(),
 });
 
-app.listen(3500, () => {
-  console.log(`Server running at http://localhost:3500`);
+console.log(JSON.stringify(Person.toJSONSchema(), null, 2));
+
+const result = await genAI.models.generateContent({
+  model: "gemini-3.1-flash-lite-preview",
+  contents: "Return a person with a name and age.",
+  config: {
+    responseMimeType: "application/json",
+    responseJsonSchema: Person.toJSONSchema(),
+    thinkingConfig: { thinkingBudget: 0 }
+  },
 });
 
+console.log(result.text);

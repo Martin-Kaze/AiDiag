@@ -1,14 +1,13 @@
 "use client"
 import { Button } from "../ui/button"
-import { useDispatch, useSelector } from "react-redux"
-import { TurnOn, TurnOff, SetTopic} from "@/state/slices/ShowTextSlice"
-import { increase } from "@/state/slices/ProgressSlice"
+import { useDispatch,  } from "react-redux"
+import { SetSelected } from "@/state/slices/UserInputSlice" 
 import { cn } from "@/lib/utils"
 import { useRouter } from 'next/navigation';
 
 export  function StartConvButton(props: { 
   children: React.ReactNode
-  topic: "I need to understand my pain" | "I need to be healed" | "I need to know my body signals"
+  topic: "heal" | "undersantd" | "signals"
   className?: string
 }) {
   const router = useRouter();
@@ -17,10 +16,7 @@ export  function StartConvButton(props: {
    
     <Button 
       onClick={() => {
-      dispatch(TurnOn());
-      dispatch(SetTopic(props.topic));
-      dispatch(increase(10))
-     
+      dispatch(SetSelected(props.topic));
       }
     }
      className={cn(

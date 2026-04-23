@@ -1,5 +1,5 @@
 
-import StartConvButtonGroup from "@/components/FirstPage/StartConvButtonGroup";
+import StartConversation from "@/components/FirstPage/StartConversation";
 import { Menu } from "@/components/ForAllPage/Menu";
 import { InputBasic } from "@/components/FirstPage/InputBasic"; 
 import ProgressBar from "@/components/ForAllPage/ProgressBar";
@@ -15,7 +15,7 @@ export default function Home() {
 
        
        
-        <StartConvButtonGroup/>
+        <StartConversation/>
 
         <InputBasic />
 

@@ -1,17 +1,24 @@
 "use client"
-import { motion, AnimatePresence } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
 import { StartConvButton } from "./StartConvButton";
-import { cn } from "@/lib/utils"
+import { SetSelected } from "@/state/slices/UserInputSlice";
 import TypeWriter from "./TypeWriter";
 import { Bot } from "lucide-react";
-export default function StartConvButtonGroup(){ 
-  const topic = useSelector((state: any) => state.ShowTextRedue.topic);
-  const show = useSelector((state: any) => state.ShowTextRedue.show);
+import { RootState, AppDispatch } from "@/state/store";
+import { useEffect } from "react";
 
+export default function StartConvButtonGroup(){ 
+
+  const selected = useSelector((state: RootState) => state.UserInputReducer.Selected);
+  const dispatch : AppDispatch = useDispatch();
+
+  useEffect(() => {
+  dispatch(SetSelected(false))  
+  }, [])
+  
   return (
     <>
-     {!show && (
+     {!selected && (
 
 
 <>
@@ -26,9 +33,9 @@ export default function StartConvButtonGroup(){
         >
 
 
-          <StartConvButton topic="I need to be healed">"I'm ready to heal, and be better"</StartConvButton>
-          <StartConvButton topic="I need to understand my pain">"I want to understand my pain"</StartConvButton>
-          <StartConvButton topic="I need to know my body signals">"My body is sending signals" </StartConvButton>
+          <StartConvButton topic="heal">"I'm ready to heal, and be better"</StartConvButton>
+          <StartConvButton topic="undersantd">"I want to understand my pain"</StartConvButton>
+          <StartConvButton topic="signals">"My body is sending signals" </StartConvButton>
 
           <p className="text-neutral-400"> Choose what you want</p>
 

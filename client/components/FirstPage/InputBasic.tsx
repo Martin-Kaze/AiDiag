@@ -1,25 +1,29 @@
 "use client"
 import { Input } from "@/components/ui/input"
 import { useSelector , useDispatch } from "react-redux";
-import { increase } from "@/state/slices/ProgressSlice";
+import { SetExplained } from "@/state/slices/UserInputSlice";
 import { useState , useEffect} from "react";
 import { cn } from "@/lib/utils";
 import { Bot } from "lucide-react";
 import TypeWriter from "./TypeWriter";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation"
+import { AppDispatch, RootState } from "@/state/store";
+
 
 
 
 export function InputBasic() {
-  const dispatch = useDispatch();
+  const dispatch : AppDispatch = useDispatch();
     const router = useRouter()
     useEffect(() => {
     router.prefetch("/questions") // preload page
+    dispatch(SetExplained(false));
   }, [])
 
   const [text, setText] = useState("");
-  const showText = useSelector((state: any) => state.ShowTextRedue.show);
+  const showText = useSelector((state: RootState) => state.UserInputReducer.Selected);
+  const UserInput = useSelector((state: RootState) => state.UserInputReducer.ExplainingSelected);
   const [ButtonText, setButtonText] = useState<boolean>(false)
   return (
     
@@ -45,13 +49,26 @@ export function InputBasic() {
               }
           />
           <p className="text-neutral-500"> {ButtonText ? 'Keep it brief 150 characters max' : 'Your answer helps us personalise your experience'} </p>
-        <Button 
+        <Button
+        disabled={ButtonText ? false : true}
         type="submit"
         onClick={() => {
             router.push("/questions");
-             dispatch(increase(10))
+             dispatch(SetExplained(text));
+             fetch('/api/symptoms', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    initalinput: UserInput
+  }),
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
         } }      
-        > {ButtonText ? 'SUMMIT' : 'SKIP'} </Button>
+        > SUMMIT </Button>
         
         </div>
       )}

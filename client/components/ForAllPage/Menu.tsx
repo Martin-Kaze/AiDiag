@@ -1,3 +1,4 @@
+'use client'
 import {
   Menubar,
   MenubarContent,
@@ -13,7 +14,11 @@ import Link from "next/link"
 import { Logs } from 'lucide-react';
 import { User } from 'lucide-react'
 import { MessageSquarePlus } from 'lucide-react'
+import { useDispatch } from "react-redux";
+import { SetSelected, SetExplained } from "@/state/slices/UserInputSlice";
+import { AppDispatch } from "@/state/store";
 export function Menu () {
+  const distpatch :AppDispatch =  useDispatch();
     return (
 
 <Menubar className="relative p-2 bg-background w-full rounded-0">
@@ -38,6 +43,9 @@ export function Menu () {
   </MenubarMenu>
   <Link 
   href={"/"}
+  onClick={ () => { distpatch(SetSelected(false)), distpatch(SetExplained(false)) 
+
+  }}
   className="absolute left-1/2 -translate-x-1/2 text-xl font-bold tracking-widest uppercase"
   >
   Wellness
