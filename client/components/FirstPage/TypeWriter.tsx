@@ -1,37 +1,39 @@
 "use client";
+import { RootState } from "@/state/store";
 import { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 
+const TOPIC_PROMPTS: Record<string, string> = {
+  heal: "What does healing look like for you right now?",
+  undersantd: "What part of your pain feels the hardest to make sense of?",
+  signals: "What is your body trying to tell you?",
+};
+
 export default function TypeWriter({ text }: { text: string }) {
   const [displayed, setDisplayed] = useState("");
-  
-  // Select only what you need
-  const topic = useSelector((state: any) => state.ShowTextRedue?.topic);
+  const topic = useSelector((state: RootState) => state.UserInputReducer.Selected);
 
-  // useMemo prevents a "new" string reference from being created on every render
   const finalString = useMemo(() => {
-    return topic && topic !== "not selected" ? `You said "` +  `${topic}` + `", please, explain.` : text 
+    return topic ? TOPIC_PROMPTS[topic] ?? text : text;
   }, [text, topic]);
 
   useEffect(() => {
-    // If for some reason finalString is empty, don't start
     if (!finalString) return;
 
-    let i = 0;
-    setDisplayed(""); // Clean start for the animation
+    let i = 1;
+    setDisplayed(finalString.slice(0, 1));
 
     const interval = setInterval(() => {
-      // Use the stable finalString here
-      setDisplayed(finalString.slice(0, i));
-      i++;
-      
-      if (i > finalString.length) {
+      if (i >= finalString.length) {
         clearInterval(interval);
+        return;
       }
-    }, 50);
+      i++;
+      setDisplayed(finalString.slice(0, i));
+    }, 45);
 
     return () => clearInterval(interval);
-  }, [finalString]); // This array is now stable and size is always 1
+  }, [finalString]);
 
   return <span>{displayed}</span>;
 }
