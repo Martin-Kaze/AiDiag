@@ -16,7 +16,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness</p>
+        <p className="text-neutral-700">© 2026 Wellness.chat</p>
       </footer>
 
     </div>
