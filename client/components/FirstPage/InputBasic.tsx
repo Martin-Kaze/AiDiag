@@ -11,72 +11,51 @@ import { useRouter } from "next/navigation"
 import { AppDispatch, RootState } from "@/state/store";
 
 
-
+const TOPIC_CHIPS: Record<string, string[]> = {
+  heal:        ["Low mood", "Anxiety", "Poor sleep", "Stress"],
+  undersantd:  ["Low energy", "Pain", "Fitness", "Weight"],
+  signals:     ["Mind & body", "Habits", "All of the above"],
+};
 
 export function InputBasic() {
-  const dispatch : AppDispatch = useDispatch();
-    const router = useRouter()
-    useEffect(() => {
-    router.prefetch("/questions") // preload page
-    dispatch(SetExplained(false));
-  }, [])
+  const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
+  const topic = useSelector((state: RootState) => state.UserInputReducer.Selected);
+  const [selected, setSelected] = useState('');
 
-  const [text, setText] = useState("");
-  const showText = useSelector((state: RootState) => state.UserInputReducer.Selected);
-  const UserInput = useSelector((state: RootState) => state.UserInputReducer.ExplainingSelected);
-  const [ButtonText, setButtonText] = useState<boolean>(false)
+  const handleSubmit = (chip: string) => {
+    dispatch(SetExplained(chip));
+    fetch('/api/symptoms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ initalinput: chip }),
+    });
+    router.push('/questions/aboutyou');
+  };
 
-  const handleSubmit = (e : React.FormEvent) =>  { router.push("/questions/aboutyou");
-    e.preventDefault();
-             dispatch(SetExplained(text));
-             fetch('/api/symptoms', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    initalinput: UserInput
-  }),
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
-          }
+  if (!topic) return null;
 
-  
   return (
-    
-    <>
-    
-      {showText && (
-        <form className="flex flex-col gap-2 w-full items-center">
-          <Bot size={40}/>
-          <TypeWriter text="How can I help you today?"  />
-          <Input 
-          onSubmit={handleSubmit}
-          maxLength={150}
-            placeholder="Write here..." 
-            className={cn("resize-none w-full animate-in fade-in slide-in-from-top-2 mt-5 ", text.length >= 150 ? "animate-pulse border-red-500 bg-red-100!" : "") }
-            style={{ backgroundColor: 'white' }} 
-            onChange={(e) => {
-             setText( e.target.value); 
-            const hasText = e.target.value.length > 0;
-            if (hasText !== ButtonText) {
-    setButtonText(hasText);
-  }
-}
-              
-              }
-          />
-          <p className="text-neutral-500"> {ButtonText ? 'Keep it brief 150 characters max' : 'Your answer helps us personalise your experience'} </p>
-        <Button
-        disabled={ButtonText ? false : true}
-        type="submit"
-        onClick={handleSubmit}      
-        > SUMMIT </Button>
-        
-        </form>
-      )}
-    </>
+    <div className="flex flex-col gap-4 items-center w-full">
+      <Bot size={36} />
+      <TypeWriter text="What's the main thing?" />
+      <div className="flex flex-wrap gap-2 justify-center mt-4">
+        {TOPIC_CHIPS[topic]?.map((chip) => (
+          <button
+            key={chip}
+            onClick={() => handleSubmit(chip)}
+            className={cn(
+              "px-4 py-2 rounded-full border text-sm transition-all",
+              selected === chip
+                ? "bg-black text-white border-black"
+                : "bg-white text-black border-neutral-300 hover:border-black"
+            )}
+          >
+            {chip}
+          </button>
+        ))}
+      </div>
+      <p className="text-xs text-muted-foreground">Tap one to continue</p>
+    </div>
   );
 }
