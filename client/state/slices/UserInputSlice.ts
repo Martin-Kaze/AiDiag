@@ -5,6 +5,7 @@ export interface UserInput {
     ExplainingSelected : string | false;
     Gender : 'male' | 'female' | 'undiclosed' | false;
     Age : number | false;
+    Info2 : string | false;
 
 }
 
@@ -13,6 +14,7 @@ const initialState: UserInput = {
     ExplainingSelected : false,
     Gender : false,
     Age : false,
+    Info2 : false,
 };
 
 const UserInputSlice = createSlice({
@@ -50,9 +52,18 @@ const UserInputSlice = createSlice({
             if( action.payload == false){
             state.Age  = false;
             } 
-        }
+        },
+        SetInfo2 : ( state , action ) => {
+            if(!state.Info2){
+             state.Info2 = action.payload;  
+             console.log('set') 
+            }
+            if( action.payload == false){
+            state.Info2  = false;
+            } 
+        },
         }
         })
 
-        export const { SetSelected, SetExplained, SetGender, SetAge} = UserInputSlice.actions;
+        export const { SetSelected, SetExplained, SetGender, SetAge ,SetInfo2} = UserInputSlice.actions;
         export default UserInputSlice.reducer;

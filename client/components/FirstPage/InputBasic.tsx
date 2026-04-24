@@ -12,9 +12,10 @@ import { AppDispatch, RootState } from "@/state/store";
 
 
 const TOPIC_CHIPS: Record<string, string[]> = {
-  heal:        ["Low mood", "Anxiety", "Poor sleep", "Stress"],
-  undersantd:  ["Low energy", "Pain", "Fitness", "Weight"],
-  signals:     ["Mind & body", "Habits", "All of the above"],
+  heal:        ["Low mood", "Anxiety", "Poor sleep", "Stress", "Other"],
+  undersantd:  ["Low energy", "Pain", "Fitness", "Weight", "Other"],
+  signals:     ["Mind & body", "Habits", "All of the above", "Other"],
+  
 };
 
 export function InputBasic() {

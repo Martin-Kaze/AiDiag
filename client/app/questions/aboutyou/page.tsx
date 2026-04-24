@@ -3,7 +3,7 @@ import ProgressBar from "@/components/ForAllPage/ProgressBar";
 import ProvidePersonalInfo from "@/components/QuestioPage/ProvidePersonalInfo";
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <div className="flex flex-col min-h-screen w-full ">
 
       <header className="w-full"><Menu /></header>
 
