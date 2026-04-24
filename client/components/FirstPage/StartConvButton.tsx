@@ -20,7 +20,7 @@ export  function StartConvButton(props: {
       }
     }
      className={cn(
-  "flex-1 w-[50%] whitespace-normal h-auto py-1 ",
+  "flex-1 w-[50%] text-nowrap h-auto py-1 ",
   props.className, 
   
 )}

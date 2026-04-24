@@ -25,7 +25,7 @@ export default function StartConvButtonGroup(){
 
              <h1 className=" text-xl sm:text-3xl font-bold flex justify-center gap-3">
           <Bot className="animate-float  " size={40} strokeWidth={1} absoluteStrokeWidth />
-          <TypeWriter text={`Where do you want to start?`} />
+          <TypeWriter text={`You want to improve?`} />
         </h1>
 
         <div
@@ -33,9 +33,9 @@ export default function StartConvButtonGroup(){
         >
 
 
-          <StartConvButton topic="heal">I want to heal</StartConvButton>
-          <StartConvButton topic="undersantd">I want to understand</StartConvButton>
-          <StartConvButton topic="signals">I feel it in my body</StartConvButton>
+          <StartConvButton topic="heal">Mental Wellness</StartConvButton>
+          <StartConvButton topic="undersantd">Physical Wellness</StartConvButton>
+          <StartConvButton topic="signals">Both</StartConvButton>
 
           <p className="text-neutral-400"> Which feels right to you?</p>
 

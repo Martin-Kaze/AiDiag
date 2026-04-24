@@ -1,5 +1,6 @@
 import { Menu } from "@/components/ForAllPage/Menu";
 import ProgressBar from "@/components/ForAllPage/ProgressBar";
+import ProvidePersonalInfo from "@/components/QuestioPage/ProvidePersonalInfo";
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen w-full">
@@ -9,7 +10,7 @@ export default function Home() {
       <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto">
 
        
-       
+            <ProvidePersonalInfo/>
             <ProgressBar/>
         
         

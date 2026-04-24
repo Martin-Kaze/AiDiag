@@ -25,15 +25,35 @@ export function InputBasic() {
   const showText = useSelector((state: RootState) => state.UserInputReducer.Selected);
   const UserInput = useSelector((state: RootState) => state.UserInputReducer.ExplainingSelected);
   const [ButtonText, setButtonText] = useState<boolean>(false)
+
+  const handleSubmit = (e : React.FormEvent) =>  { router.push("/questions/aboutyou");
+    e.preventDefault();
+             dispatch(SetExplained(text));
+             fetch('/api/symptoms', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    initalinput: UserInput
+  }),
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+          }
+
+  
   return (
     
     <>
     
       {showText && (
-        <div className="flex flex-col gap-2 w-full items-center">
+        <form className="flex flex-col gap-2 w-full items-center">
           <Bot size={40}/>
           <TypeWriter text="How can I help you today?"  />
           <Input 
+          onSubmit={handleSubmit}
           maxLength={150}
             placeholder="Write here..." 
             className={cn("resize-none w-full animate-in fade-in slide-in-from-top-2 mt-5 ", text.length >= 150 ? "animate-pulse border-red-500 bg-red-100!" : "") }
@@ -52,25 +72,10 @@ export function InputBasic() {
         <Button
         disabled={ButtonText ? false : true}
         type="submit"
-        onClick={() => {
-            router.push("/questions");
-             dispatch(SetExplained(text));
-             fetch('/api/symptoms', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    initalinput: UserInput
-  }),
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
-        } }      
+        onClick={handleSubmit}      
         > SUMMIT </Button>
         
-        </div>
+        </form>
       )}
     </>
   );

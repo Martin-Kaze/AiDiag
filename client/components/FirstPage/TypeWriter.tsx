@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 
 const TOPIC_PROMPTS: Record<string, string> = {
   heal: "What does healing look like for you right now?",
-  undersantd: "What part of your pain feels the hardest to make sense of?",
-  signals: "What is your body trying to tell you?",
+  undersantd: "What is your body trying to tell you?",
+  signals: "Do you need or want to improve yourself?",
 };
 
 export default function TypeWriter({ text }: { text: string }) {
