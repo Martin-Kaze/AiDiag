@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface UserInput {
     Selected : 'heal' | 'undersantd' | 'signals' | false
     ExplainingSelected : string | false;
-    Gender : 'male' | 'female' | 'undiclosed' | false;
+    Gender : 'slim' | 'fat' | 'obese' | false;
     Age : number | false;
     Info2 : string | false;
+    Posture : {};
 
 }
 
@@ -15,6 +16,7 @@ const initialState: UserInput = {
     Gender : false,
     Age : false,
     Info2 : false,
+    Posture : {}
 };
 
 const UserInputSlice = createSlice({
@@ -56,14 +58,22 @@ const UserInputSlice = createSlice({
         SetInfo2 : ( state , action ) => {
             if(!state.Info2){
              state.Info2 = action.payload;  
-             console.log('set') 
+           
             }
             if( action.payload == false){
             state.Info2  = false;
             } 
         },
+         SetPosure : ( state , action ) => {
+            if(!state.Posture){
+             state.Posture = action.payload;  
+            }
+            if( action.payload == false){
+            state.Posture  = false;
+            } 
+        },
         }
         })
 
-        export const { SetSelected, SetExplained, SetGender, SetAge ,SetInfo2} = UserInputSlice.actions;
+        export const { SetSelected, SetExplained, SetGender, SetAge ,SetInfo2, SetPosure} = UserInputSlice.actions;
         export default UserInputSlice.reducer;

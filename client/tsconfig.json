@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "app/questions"  ],
+, "app/questions", "app/posture"  ],
   "exclude": ["node_modules"]
 }

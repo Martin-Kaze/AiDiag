@@ -1,28 +1,18 @@
-'use client'
 import { Menu } from "@/components/ForAllPage/Menu";
-
-import ProvidePersonalInfo from "@/components/QuestioPage/ProvidePersonalInfo";
-import { useMyLogic } from "@/lib/useMyLogic";
-import { ChipSelect } from "@/components/QuestioPage/ChipSelect";
 import ProgressBar from "@/components/ForAllPage/ProgressBar";
-import PostureChecker from "../../../lib/PostureChecker";
+import { SecondQuestion } from "@/components/QuestioPage/SecondQuestion"; 
 export default function Home() {
-  useMyLogic();
-
-
-
   return (
-    <div className="flex flex-col min-h-screen w-full items-center">
+    <div className="flex flex-col min-h-screen w-full ">
 
       <header className="w-full"><Menu /></header>
 
       <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto">
 
        
-         
-        <PostureChecker/>
-          
-          <ProgressBar/>
+            <SecondQuestion/>
+            <ProgressBar/>
+        
         
       </main>
 

@@ -1,7 +1,6 @@
 
-import StartConversation from "@/components/FirstPage/StartConversation";
+import FirstQuestion from "@/components/QuestioPage/FirstQuestion"; 
 import { Menu } from "@/components/ForAllPage/Menu";
-import { InputBasic } from "@/components/FirstPage/InputBasic"; 
 import ProgressBar from "@/components/ForAllPage/ProgressBar";
 
 
@@ -15,9 +14,9 @@ export default function Home() {
 
        
        
-        <StartConversation/>
+        <FirstQuestion/>
 
-        <InputBasic />
+       
 
         <ProgressBar/>
         

@@ -1,24 +1,24 @@
 "use client"
-import { Input } from "@/components/ui/input"
+
 import { useSelector , useDispatch } from "react-redux";
 import { SetExplained } from "@/state/slices/UserInputSlice";
 import { useState , useEffect} from "react";
 import { cn } from "@/lib/utils";
 import { Bot } from "lucide-react";
-import TypeWriter from "./TypeWriter";
-import { Button } from "../ui/button";
+import TypeWriter from "../FirstPage/TypeWriter"; 
+import { useMyLogic } from "@/lib/useMyLogic";
 import { useRouter } from "next/navigation"
 import { AppDispatch, RootState } from "@/state/store";
 
 
 const TOPIC_CHIPS: Record<string, string[]> = {
-  heal:        ["Low mood", "Anxiety", "Poor sleep", "Stress", "Other"],
-  undersantd:  ["Low energy", "Pain", "Fitness", "Weight", "Other"],
-  signals:     ["Mind & body", "Habits", "All of the above", "Other"],
-  
+  heal:       ["Neck", "Shoulders", "Poor sleep", "Stress", "Other"],
+  undersantd: ["Back", "Spine", "Low energy", "Fitness", "Other"],
+  signals:    ["Head", "Energy", "Mind & body", "Habits", "Other"],
 };
 
-export function InputBasic() {
+export function SecondQuestion() {
+  
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
   const topic = useSelector((state: RootState) => state.UserInputReducer.Selected);
@@ -26,11 +26,7 @@ export function InputBasic() {
 
   const handleSubmit = (chip: string) => {
     dispatch(SetExplained(chip));
-    fetch('/api/symptoms', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ initalinput: chip }),
-    });
+   
     router.push('/questions/aboutyou');
   };
 

@@ -34,16 +34,16 @@ const [age, setAge] = useState(0);
   <div className="flex items-end gap-3">
     
     <div className="flex flex-col gap-2">
-      <label className="text-sm font-medium">Biological sex</label>
+      <label className="text-sm font-medium">Your Body</label>
       <Select onValueChange={(val) => { dispatch(SetGender(val)); setGender(val); }}>
         <SelectTrigger className="w-36">
           <SelectValue placeholder="Select" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="male">Male</SelectItem>
-            <SelectItem value="female">Female</SelectItem>
-            <SelectItem value="undisclosed">Prefer not to say</SelectItem>
+            <SelectItem value="slim">slim</SelectItem>
+            <SelectItem value="fat">fat</SelectItem>
+            <SelectItem value="obese">obese</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
