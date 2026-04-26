@@ -28,7 +28,7 @@ const [age, setAge] = useState(0);
       </p>
 
       <form
-  onSubmit={(e) => { e.preventDefault(); router.push('/questions/nextstep'); }}
+  onSubmit={(e) => { e.preventDefault(); router.push('/questions/siting'); }}
   className="flex flex-col gap-5 w-full items-center"
 >
   <div className="flex items-end gap-3">

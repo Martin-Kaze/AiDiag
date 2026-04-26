@@ -17,7 +17,7 @@ export  function StartConvButton(props: {
     <Button 
       onClick={() => {
       dispatch(SetSelected(props.topic));
-      router.push('/posture')
+      router.push('/questions/posture')
       }
     }
      className={cn(
