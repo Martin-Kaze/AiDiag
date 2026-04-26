@@ -12,9 +12,9 @@ import { AppDispatch, RootState } from "@/state/store";
 
 
 const TOPIC_CHIPS: Record<string, string[]> = {
-  heal:       ["Neck", "Shoulders", "Poor sleep", "Stress", "Other"],
-  undersantd: ["Back", "Spine", "Low energy", "Fitness", "Other"],
-  signals:    ["Head", "Energy", "Mind & body", "Habits", "Other"],
+  heal:       ["Neck", "Shoulders", "Back", "Spine",  "All",  "Other"],
+  undersantd: ["Neck", "Shoulders", "Back", "Spine",  "All", 'Head',  "Other"],
+  signals:    ["Head pain", "Energy loss", "Brain fog", "Bad Habits", "Other"],
 };
 
 export function SecondQuestion() {
