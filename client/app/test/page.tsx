@@ -14,7 +14,9 @@ export default function Home() {
 
       <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto  ">
 
-    <QuestionPhoto image={["/images/siting-1.jpeg" , "/images/siting-2.jpeg" , "/images/siting-3.jpeg"]} route={'/stading'} />
+        
+
+        hehe 
       
       </main>
 

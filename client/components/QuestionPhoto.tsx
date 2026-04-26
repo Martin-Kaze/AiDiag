@@ -11,7 +11,7 @@ import {
 import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useRouter } from "next/navigation"
+
 
 interface QuestionPhotoProps {
   image: [string, string, string];
@@ -21,7 +21,7 @@ interface QuestionPhotoProps {
 const QuestionPhoto = ( props : QuestionPhotoProps ) => {
     const [api, setApi] = useState<CarouselApi>();
     const [Current, SetCurrent] = useState <number> (0);
-const router = useRouter()
+
     useEffect(() => {
   if (!api) return
   api.on("select", () => SetCurrent(api.selectedScrollSnap()));
@@ -34,17 +34,17 @@ const router = useRouter()
       <div className="w-full px-8">  {/* 👈 px-8 makes room for the buttons */}
   <Carousel setApi={setApi} className="w-full" >
     <CarouselContent>
-      <CarouselItem className="bg-white  ">
-        <div className="relative w-full h-75">
-          <Image className="object-contain " priority  src={props.image[0]} alt="photo" fill   sizes="(max-width: 768px) 100vw, 600px"/>
+      <CarouselItem className=" ">
+        <div className="relative w-full h-75 ">
+          <Image className="object-contain " priority  src={props.image[0]} alt="photo" fill   sizes="(max-width: 968px) 100vw, 900px"/>
         </div>
       </CarouselItem>
-      <CarouselItem className="bg-white">
+      <CarouselItem className="">
         <div className="relative w-full h-75">
           <Image className="object-contain" src={props.image[1]} alt="photo" fill  sizes="(max-width: 768px) 100vw, 600px" />
         </div>
       </CarouselItem>
-      <CarouselItem className="bg-white"> 
+      <CarouselItem className=" "> 
         <div className="relative w-full h-75">
           <Image className="object-contain " src={props.image[2]} alt="photo" fill   sizes="(max-width: 768px) 100vw, 600px"/>
         </div>
@@ -58,13 +58,13 @@ const router = useRouter()
         <div className="flex-col">
             
          <Slider value={[Current]} defaultValue={[0]} max={2} step={1} onValueChange={ (data) => {  SetCurrent(data[0]); api?.scrollTo(data[0])  }} />
-         <div className="flex justify-between mt-5 text-xl">
+         <div className="flex justify-between mt-5 text-xl ">
             <p> 1</p> <p>2</p> <p>3</p>
          </div>
         
         </div>
        
-         <Button onClick={() => router.push(props.route)}>Next</Button>
+         
     
     </>
               
