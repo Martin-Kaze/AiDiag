@@ -1,12 +1,12 @@
 'use client'
 import { Menu } from "@/components/ForAllPage/Menu";
-import { useMyLogic } from "@/lib/useMyLogic";
+
 import { Bot } from "lucide-react";
 import ProgressBar from "@/components/QuestioPage/ProgressBar";
 import PostureChecker from "../../../components/QuestioPage/PostureChecker";
 import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
 export default function Home() {
-  useMyLogic();
+ 
 
 
 

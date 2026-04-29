@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { setField } from '@/state/slices/UserInputSlice';
 import { AppDispatch } from '@/state/store';
 import React from 'react';
-import { useMyLogic } from '@/lib/useMyLogic';
+import { useRouter } from 'next/navigation';
 import { LockIcon } from 'lucide-react';
 import {
   Select, SelectContent, SelectGroup,
@@ -15,7 +15,7 @@ import { Button } from '../ui/button';
 
 function ProvidePersonalInfo() {
   const dispatch: AppDispatch = useDispatch();
-  const { router } = useMyLogic();
+const router = useRouter()
 
   const [gender, setGender] = useState('');
 const [age, setAge] = useState(0);

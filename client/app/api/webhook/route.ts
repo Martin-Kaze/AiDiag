@@ -1,19 +1,12 @@
 import Stripe from "stripe";
-import nodemailer from "nodemailer";
 import fs from "fs";
 import path from "path";
 import { Resend } from 'resend';
 
-const resend = new Resend('re_XvED1sDJ_5wTM6KtvSQZCJbH4JLiPrY35');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-const { data, error } = await resend.emails.send({
-  from: 'anything@send.wellness.chat', // This will work
-  to: 'lopasesu007@gmail.com',
-  subject: 'Subdomain Test',
-  html: '<strong>Sent via send subdomain</strong>',
-});
 
-console.log(data , error)
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
@@ -40,7 +33,28 @@ export async function POST(req: Request) {
     const customerEmail = session.customer_details?.email!;
 
     const pdfPath = path.join(process.cwd(), "public", "product.pdf");
+    const pdfBuffer = fs.readFileSync(pdfPath);
 
+    const { data, error } = await resend.emails.send({
+  from: 'Wellness Program <support@wellness.chat>',
+  to: customerEmail,
+  subject: 'Your Wellness Program PDF',
+  // Add the 'text' property for better deliverability
+  text: 'Thank you for your purchase! Your personalized PDF is attached to this email.', 
+  html: '<p>Thank you for your purchase! Your personalized PDF is attached.</p>',
+  attachments: [
+    {
+      content: pdfBuffer,
+      filename: 'Wellness_Program.pdf',
+    },
+  ],
+});
+
+if (error) {
+  console.error("Error sending email:", error);
+}
+
+console.log(data);
    
   }
 

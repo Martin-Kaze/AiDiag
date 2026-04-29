@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from 'next/navigation';
-import { useMyLogic } from "../../lib/useMyLogic";
+
 import { setField } from "@/state/slices/UserInputSlice";
 
 const CHECKS_DEF = [
@@ -48,7 +48,7 @@ function calcScore(avg) {
 const CAPTURE_SECS = 10;
 
 export default function PostureChecker() {
-  useMyLogic();
+
   const dispatch = useDispatch();
   const router = useRouter();
 
