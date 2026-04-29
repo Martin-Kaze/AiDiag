@@ -36,18 +36,24 @@ export async function POST(req: Request) {
     const pdfBuffer = fs.readFileSync(pdfPath);
 
     const { data, error } = await resend.emails.send({
-  from: 'Wellness Program <support@wellness.chat>',
+  from: 'Wellness Chat <purchase@wellness.chat>', // Professional From Name
   to: customerEmail,
-  subject: 'Your Wellness Program PDF',
-  // Add the 'text' property for better deliverability
-  text: 'Thank you for your purchase! Your personalized PDF is attached to this email.', 
-  html: '<p>Thank you for your purchase! Your personalized PDF is attached.</p>',
-  attachments: [
-    {
-      content: pdfBuffer,
-      filename: 'Wellness_Program.pdf',
-    },
-  ],
+  subject: 'Order Confirmed: Your Wellness Program PDF', // Better Subject
+  text: 'Thank you for your purchase! Your personalized PDF is attached to this email. Please keep this for your records.', // Add Plain Text
+  html: `
+  <div style="font-family: sans-serif; color: #333;">
+    <p>Thank you for your purchase! Your personalized PDF is attached.</p>
+    <p>If you have any questions, just reply to this email.</p>
+    
+    <br><br>
+    
+    <div style="font-size: 11px; color: #999; border-top: 1px solid #eee; padding-top: 10px;">
+      <p><strong>Wellness Chat Inc.</strong></p>
+      <p>Wellness Chat | Vilnius, Lithuania | wellness.chat</p>
+    </div>
+  </div>
+`,
+  attachments: [{ content: pdfBuffer, filename: 'Wellness_Program.pdf' }],
 });
 
 if (error) {
