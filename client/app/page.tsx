@@ -1,8 +1,6 @@
 
-import FirstQuestion from "@/components/QuestioPage/FirstQuestion"; 
 import { Menu } from "@/components/ForAllPage/Menu";
-import ProgressBar from "@/components/ForAllPage/ProgressBar";
-
+import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
 
 export default function Home() {
   return (
@@ -10,20 +8,33 @@ export default function Home() {
 
       <header className="w-full"><Menu /></header>
 
-      <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto">
+      <main className=" relative flex flex-1 flex-col items-center justify-center gap-4 p-8 max-w-3xl w-full mx-auto">
 
-       
-       
-        <FirstQuestion/>
+     
+        <h1 className="text-2xl font-medium text-neutral-800">Where would you like to start?</h1>
+        <p className="text-neutral-500 text-sm mb-4">Choose a path below</p>
 
-       
-
-        <ProgressBar/>
-        
+        <ButtonPushRoute
+          text="Take the Posture Test"
+          route="/questions/1"
+          classname="w-full max-w-sm"
+        />
+        <ButtonPushRoute
+        disabled={true}
+          text="Read the Blog"
+          route="/blogs"
+          classname="w-full max-w-sm"
+        />
+        <ButtonPushRoute
+        disabled={true}
+          text="Go to Forums"
+          route="/blogs"
+          classname="w-full max-w-sm"
+        />
       </main>
 
-      <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness.chat</p>
+      <footer className="border-t p-4">
+        <p className="text-sm text-neutral-400 text-center">© 2026 Wellness.chat</p>
       </footer>
 
     </div>

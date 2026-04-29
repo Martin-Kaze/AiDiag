@@ -1,18 +1,21 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
-
 export default function Home() {
 
+
+
+
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <div className="flex flex-col min-h-screen w-full items-center">
 
       <header className="w-full"><Menu /></header>
 
-      <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto  ">
+      <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto">
 
-        <p className="text-3xl font-bold text-center"> This could happen if you have a bad posture! </p>
+         <p className="text-xl font-bold text-center"> Processing your personal program</p>
 
-     yes
+      pls buy lol
+
 
       </main>
 

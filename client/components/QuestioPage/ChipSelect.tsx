@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Bot } from "lucide-react";
-import TypeWriter from "../FirstPage/TypeWriter"; 
-import { SetInfo2 } from "@/state/slices/UserInputSlice";
+import TypeWriter from "./TypeWriter"; 
 import { useDispatch } from "react-redux";
 import { useRouter } from 'next/navigation';
+import { setField } from "@/state/slices/UserInputSlice";
 
 interface ChipSelectProps {
   question: string;
@@ -18,10 +18,9 @@ export function ChipSelect({ question, chips, type, route }: ChipSelectProps) {
   const [selected, setSelected] = useState('');
   const dispatch = useDispatch();
 const router = useRouter();
-  const handleSelect = (chip: string) => {
+  const handleSelect = (chip: string, type: string) => {
     setSelected(chip);
-    
-    if (type === 'Info2') dispatch(SetInfo2(chip));
+    dispatch(setField({ key : type , value : chip}))
   };
 
   return (
@@ -32,7 +31,7 @@ const router = useRouter();
         {chips.map((chip) => (
           <button
             key={chip}
-            onClick={() => {handleSelect(chip), router.push(route) }}
+            onClick={() => {handleSelect(chip, type), router.push(route) }}
             className={cn(
               "px-4 py-2 rounded-full border text-sm transition-all",
               selected === chip

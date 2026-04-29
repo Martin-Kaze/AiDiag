@@ -1,7 +1,7 @@
 'use client'
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { SetGender, SetAge } from '@/state/slices/UserInputSlice';
+import { setField } from '@/state/slices/UserInputSlice';
 import { AppDispatch } from '@/state/store';
 import React from 'react';
 import { useMyLogic } from '@/lib/useMyLogic';
@@ -28,22 +28,22 @@ const [age, setAge] = useState(0);
       </p>
 
       <form
-  onSubmit={(e) => { e.preventDefault(); router.push('/questions/siting'); }}
+  onSubmit={(e) => { e.preventDefault(); router.push('/questions/didyouknow'); }}
   className="flex flex-col gap-5 w-full items-center"
 >
   <div className="flex items-end gap-3">
     
     <div className="flex flex-col gap-2">
       <label className="text-sm font-medium">Your Body</label>
-      <Select onValueChange={(val) => { dispatch(SetGender(val)); setGender(val); }}>
+      <Select onValueChange={(val) => { dispatch(setField( { key: '6' , value: val})); setGender(val); }}>
         <SelectTrigger className="w-36">
           <SelectValue placeholder="Select" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectItem value="slim">slim</SelectItem>
-            <SelectItem value="fat">fat</SelectItem>
-            <SelectItem value="obese">obese</SelectItem>
+            <SelectItem value="slim">Slim</SelectItem>
+            <SelectItem value="fat">Overweight</SelectItem>
+            <SelectItem value="obese">Obese</SelectItem>
           </SelectGroup>
         </SelectContent>
       </Select>
@@ -56,11 +56,11 @@ const [age, setAge] = useState(0);
   inputMode="numeric"
   min={18}
   max={120}
-  placeholder="34"
+  placeholder="Select"
   className="w-20"
   onChange={(e) => { 
     const val = +e.target.value;
-    dispatch(SetAge(val)); 
+    //dispatch(SetAge(val)); 
     setAge(val); 
   }}
 />

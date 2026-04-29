@@ -1,6 +1,10 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
 
+import PostureHorror from "@/app/questions/scary/text2";
+
+import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
+
 export default function Home() {
 
   return (
@@ -12,7 +16,9 @@ export default function Home() {
 
         <p className="text-3xl font-bold text-center"> This could happen if you have a bad posture! </p>
 
-     yes
+        <PostureHorror/>
+
+        <ButtonPushRoute text="Understood" route="/questions/9"/>
 
       </main>
 
