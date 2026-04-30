@@ -1,23 +1,8 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-<<<<<<< HEAD
-    "noEmit": true,
-    /* We removed baseUrl and ignoreDeprecations here */
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "extends": "./tsconfig.app.json",
-  "include": ["src"]
-}
-=======
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -29,15 +14,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -46,13 +25,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts",
-    "app/questions",
-    "app/questions/posture",
-    "app/questions/analysis"
+    "**/*.mts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
->>>>>>> shadcniu
