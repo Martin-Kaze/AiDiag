@@ -1,58 +1,48 @@
 "use client";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Menu } from "@/components/ForAllPage/Menu";
+import { Footer } from "@/components/ForAllPage/Footer";
 
-import { useState } from "react";
-
-// ✅ PUT YOUR PRICE IDs HERE (price_... NOT prod_...)
 const products = [
   {
     name: "Basic",
-    price: "2Eur",
-    priceId: "price_1TRWwTACh95vdJUnDRKVRAYk", // ← replace this
-    description: "Perfect for individuals getting started.",
-    features: ["Core features", "Email support", "1 project"],
-    featured: false,
+    price: "$11",
+    priceId: "price_1TRWwTACh95vdJUnDRKVRAYk", // ← replace with USD price ID
+    helperText: "This option helps us support those who need the lowest price — thank you for understanding.",
   },
   {
-    name: "Pro",
-    price: "1EUr",
-    priceId: "price_1TRWWlACh95vdJUnlbTIxI1Q", // ← replace this
-    description: "For professionals who need more power.",
-    features: ["Everything in Basic", "Priority support", "10 projects"],
-    featured: true,
+    name: "Standard",
+    price: "$17",
+    priceId: "price_1TRWWlACh95vdJUnlbTIxI1Q", // ← replace with USD price ID
+    helperText: "This covers our exact production cost. A fair and honest choice.",
   },
   {
     name: "Premium",
-    price: "3Eur",
-    priceId: "price_1TRWwhACh95vdJUnFXGIlPZX", // ← replace this
-    description: "For teams who need everything.",
-    features: ["Everything in Pro", "Dedicated support", "Unlimited projects"],
-    featured: false,
+    price: "$27",
+    priceId: "price_1TRWwhACh95vdJUnFXGIlPZX", // ← replace with USD price ID
+    helperText: "Thank you — your support helps us keep this accessible for everyone who needs it. 🙏",
   },
 ];
 
-const CheckIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="8" cy="8" r="8" fill="#dcfce7" />
-    <polyline
-      points="4.5,8 7,10.5 11.5,5.5"
-      stroke="#16a34a"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 export default function PricingPage() {
-  const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [selected, setSelected] = useState(products[2]);
+  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
 
-  const handleBuy = async (priceId: string) => {
-    setLoadingId(priceId);
+  useEffect(() => {
+    // Pull name from localStorage if you saved it during the quiz
+    const saved = localStorage.getItem("userName");
+    if (saved) setUsername(saved);
+  }, []);
+
+  const handleContinue = async () => {
+    setLoading(true);
     try {
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ priceId }),
+        body: JSON.stringify({ priceId: selected.priceId }),
       });
       const { url, error } = await res.json();
       if (error) throw new Error(error);
@@ -61,90 +51,82 @@ export default function PricingPage() {
       console.error(err);
       alert("Something went wrong. Please try again.");
     } finally {
-      setLoadingId(null);
+      setLoading(false);
     }
   };
 
   return (
-    <main style={{ fontFamily: "DM Sans, sans-serif", padding: "4rem 1rem", maxWidth: "900px", margin: "0 auto" }}>
-      <h1 style={{ fontFamily: "DM Serif Display, serif", fontSize: "42px", fontWeight: 400, textAlign: "center", margin: "0 0 0.5rem" }}>
-        Simple, honest pricing
-      </h1>
-      <p style={{ textAlign: "center", color: "#6b7280", marginBottom: "3rem" }}>
-        One-time payment. No subscriptions, no surprises.
-      </p>
+    <div className="flex flex-col min-h-screen w-full">
+      <header className="w-full"><Menu /></header>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-        {products.map((p) => (
-          <div
-            key={p.priceId}
-            style={{
-              border: p.featured ? "2px solid #3b82f6" : "1px solid #e5e7eb",
-              borderRadius: "16px",
-              padding: "1.5rem",
-              background: "#fff",
-              position: "relative",
-            }}
-          >
-            {p.featured && (
-              <span style={{
-                display: "inline-block",
-                background: "#eff6ff",
-                color: "#2563eb",
-                fontSize: "11px",
-                fontWeight: 500,
-                padding: "3px 10px",
-                borderRadius: "8px",
-                marginBottom: "1rem",
-                letterSpacing: "0.04em",
-              }}>
-                Most popular
-              </span>
+      <main className="flex flex-1 flex-col items-center justify-center gap-0 p-6 w-full">
+        <div className="w-full max-w-md">
+
+          {/* Passionate header */}
+          <div className="mb-8 text-center">
+            {username && (
+              <p className="text-sm text-neutral-400 uppercase tracking-widest mb-2 font-medium">
+                {username}
+              </p>
             )}
-
-            <p style={{ fontSize: "12px", fontWeight: 500, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.08em", margin: "0 0 0.4rem" }}>
-              {p.name}
+            <h1 className="text-4xl font-semibold text-neutral-800 leading-tight mb-3">
+              This is<br />your plan.
+            </h1>
+            <p className="text-neutral-500 text-sm leading-relaxed max-w-xs mx-auto">
+              It costs us approximately <strong className="text-neutral-700">$17</strong> to build each personal program.
+              Choose what feels right for you — no subscription, ever.
             </p>
-            <p style={{ fontFamily: "DM Serif Display, serif", fontSize: "42px", margin: "0 0 0.25rem", lineHeight: 1 }}>
-              {p.price} <span style={{ fontFamily: "DM Sans, sans-serif", fontSize: "14px", color: "#9ca3af", fontWeight: 400 }}>one-time</span>
-            </p>
-            <p style={{ fontSize: "13px", color: "#6b7280", margin: "0 0 1.25rem", lineHeight: 1.5 }}>
-              {p.description}
-            </p>
-
-            <hr style={{ border: "none", borderTop: "1px solid #f3f4f6", margin: "1.25rem 0" }} />
-
-            {p.features.map((f) => (
-              <div key={f} style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "13px", color: "#4b5563", marginBottom: "8px" }}>
-                <CheckIcon />
-                {f}
-              </div>
-            ))}
-
-            <button
-              onClick={() => handleBuy(p.priceId)}
-              disabled={loadingId === p.priceId}
-              style={{
-                display: "block",
-                width: "100%",
-                padding: "10px",
-                marginTop: "1.25rem",
-                borderRadius: "8px",
-                fontSize: "14px",
-                fontWeight: 500,
-                cursor: "pointer",
-                border: p.featured ? "none" : "1px solid #e5e7eb",
-                background: p.featured ? "#111827" : "transparent",
-                color: p.featured ? "#fff" : "#111827",
-                opacity: loadingId === p.priceId ? 0.6 : 1,
-                transition: "opacity 0.15s",
-              }}
-            >
-              {loadingId === p.priceId ? "Loading..." : `Get ${p.name}`}
-            </button>
           </div>
-        ))}
-      </div>
-    </main>
+
+          {/* Price buttons */}
+          <div className="grid grid-cols-3 gap-3 mb-3">
+            {products.map((p) => {
+              const isSelected = selected.priceId === p.priceId;
+              return (
+                <button
+                  key={p.priceId}
+                  onClick={() => setSelected(p)}
+                  className={`rounded-xl py-5 text-xl font-semibold transition-all ${
+                    isSelected
+                      ? "border-2 border-neutral-800 bg-white shadow-sm"
+                      : "border border-neutral-200 bg-neutral-50 text-neutral-600 hover:border-neutral-400"
+                  }`}
+                >
+                  {p.price}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Helper text */}
+          <p className="text-xs text-neutral-400 leading-relaxed mb-6 min-h-8 text-center px-2">
+            {selected.helperText}
+          </p>
+
+          {/* CTA */}
+          <button
+            onClick={handleContinue}
+            disabled={loading}
+            className="w-full py-4 rounded-full bg-neutral-800 text-white font-semibold text-base hover:bg-neutral-700 transition-colors disabled:opacity-60"
+          >
+            {loading ? "Processing..." : `Get my plan for ${selected.price}`}
+          </button>
+
+          <p className="text-center text-xs text-neutral-400 mt-3">
+            One-time payment · No subscription · Instant delivery
+          </p>
+
+          {/* Legal links */}
+          <div className="flex text-xs justify-between mt-6 text-neutral-400">
+            <Link href="/refund-policy" className="hover:text-neutral-600 transition-colors">Refund Policy</Link>
+            <Link href="/privacy-policy" className="hover:text-neutral-600 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-neutral-600 transition-colors">Terms of Service</Link>
+            <a href="mailto:yourwellnesschatplan@gmail.com" className="hover:text-neutral-600 transition-colors">Contact</a>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
   );
 }

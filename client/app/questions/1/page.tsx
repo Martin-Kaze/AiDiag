@@ -1,6 +1,7 @@
 
 import FirstQuestion from "@/app/questions/1/FirstQuestion"; 
 import { Menu } from "@/components/ForAllPage/Menu";
+import { Footer } from "@/components/ForAllPage/Footer";
 import ProgressBar from "@/components/QuestioPage/ProgressBar";
 
 
@@ -18,9 +19,7 @@ export default function Home() {
         
       </main>
 
-      <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness.chat</p>
-      </footer>
+      <Footer/>
 
     </div>
   );

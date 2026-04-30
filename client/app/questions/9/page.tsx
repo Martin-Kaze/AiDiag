@@ -1,10 +1,12 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
+
 import ProgressBar from "@/components/QuestioPage/ProgressBar";
 import CustRadioGroup from "@/components/QuestioPage/CustRadioGroup";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import  workout  from "@/public/images/9.png"
 import Image from "next/image";
+import { Footer } from "@/components/ForAllPage/Footer";
 export default function Home() {
 
   return (
@@ -60,9 +62,7 @@ export default function Home() {
 
       </main>
 
-      <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness.chat</p>
-      </footer>
+      <Footer/>
 
     </div>
   );

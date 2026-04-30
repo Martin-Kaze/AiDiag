@@ -1,4 +1,5 @@
 import { Menu } from "@/components/ForAllPage/Menu";
+import { Footer } from "@/components/ForAllPage/Footer";
 import ProgressBar from "@/components/QuestioPage/ProgressBar";
 import { SecondQuestion } from "./SecondQuestion"; 
 export default function Home() {
@@ -16,10 +17,7 @@ export default function Home() {
         
       </main>
 
-      <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness.chat</p>
-      </footer>
-
+      <Footer/>
     </div>
   );
 }

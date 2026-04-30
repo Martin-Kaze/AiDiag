@@ -1,5 +1,6 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
+import { Footer } from "@/components/ForAllPage/Footer";
 import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
 
 export default function Home() {
@@ -33,9 +34,7 @@ export default function Home() {
         />
       </main>
 
-      <footer className="border-t p-4">
-        <p className="text-sm text-neutral-400 text-center">© 2026 Wellness.chat</p>
-      </footer>
+     <Footer/>
 
     </div>
   );

@@ -1,5 +1,6 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
+import { Footer } from "@/components/ForAllPage/Footer";
 import AnimatedGraph from "../../../components/QuestioPage/AnimatedGraph"; 
 import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
 export default function Home() {
@@ -33,9 +34,7 @@ and from there, most people feel the momentum flip in their favor.
 
       </main>
 
-      <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness.chat</p>
-      </footer>
+      <Footer/>
 
     </div>
   );

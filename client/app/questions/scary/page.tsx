@@ -1,6 +1,6 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
-
+import { Footer } from "@/components/ForAllPage/Footer";
 import PostureHorror from "@/app/questions/scary/text2";
 
 import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
@@ -22,9 +22,7 @@ export default function Home() {
 
       </main>
 
-      <footer className="border-t p-2 ">
-        <p className="text-neutral-700">© 2026 Wellness.chat</p>
-      </footer>
+      <Footer/>
 
     </div>
   );
