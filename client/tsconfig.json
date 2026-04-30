@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
+<<<<<<< HEAD
     "noEmit": true,
     /* We removed baseUrl and ignoreDeprecations here */
     "paths": {
@@ -10,3 +11,48 @@
   "extends": "./tsconfig.app.json",
   "include": ["src"]
 }
+=======
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts",
+    "app/questions",
+    "app/questions/posture",
+    "app/questions/analysis"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+>>>>>>> shadcniu
