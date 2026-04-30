@@ -34,7 +34,7 @@ export function SecondQuestion() {
   return (
     <div className="flex flex-col gap-4 items-center w-full">
       <Bot size={36} />
-      <TypeWriter text="What's the main thing?" />
+      <TypeWriter text="More specifily?" />
       <div className="flex flex-wrap gap-2 justify-center mt-4">
         {TOPIC_CHIPS[activeTopic]?.map((chip) => (
           <button

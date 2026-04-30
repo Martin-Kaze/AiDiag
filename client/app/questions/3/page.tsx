@@ -16,27 +16,27 @@ export default function Home() {
 
 <div className=" flex flex-col items-center">
 
- <CustRadioGroup 
-       fieldkey='3'
-        route="/questions/4"  
-        fields={[
+<CustRadioGroup 
+  fieldkey='3'
+  route="/questions/4"  
+  fields={[
     { 
-      value: "Not alot", 
-      title: "Not alot", 
-      description: "I  ussualy sit less then one hour" 
+      value: "Rarely", 
+      title: "Rarely", 
+      description: "Less than 1 hour of sitting per day" 
     },
     { 
-      value: "Average", 
-      title: "Average", 
-      description: "Like couple hours" 
+      value: "Moderate", 
+      title: "Moderate", 
+      description: "Around 2–4 hours, typical desk work" 
     },
     { 
-      value: "Alot of sitting", 
-      title: "Alot of sitting", 
-      description: "I sit alot for mutiple hours" 
+      value: "A lot", 
+      title: "A lot", 
+      description: "5+ hours — most of my day is seated" 
     }
-                  ]} 
-        />
+  ]} 
+/>
 
 </div>
        
