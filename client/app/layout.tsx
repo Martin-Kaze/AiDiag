@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={cn("antialiased", publicSans.variable)}>
       <head>
         <meta name="msvalidate.01" content="3788715B74BE2070194BA1B799D2AEA5" />
-        
+        <meta name="google-site-verification" content="SSJZMxzrCMzs0QFxmKBIt4koAYUFh9ZNrH50r2FF_28" />
         {/* Google Analytics - G-QQTSCDPZXN */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QQTSCDPZXN"
