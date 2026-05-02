@@ -22,7 +22,7 @@ export default function Home() {
         </div>
         
   <div className="border-2 bg-white px-5 rounded-2xl pb-2">
-<QuestionPhoto image={["/images/siting-1.png" , "/images/siting-2.png" , "/images/siting-3.png"]} route={'questions/stading'} questionNr="4"/>
+<QuestionPhoto image={["/images/siting-1.jpg" , "/images/siting-2.png" , "/images/siting-3.png"]} route={'questions/stading'} questionNr="4"/>
 
   </div>
 
