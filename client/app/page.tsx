@@ -1,7 +1,7 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
 import { Footer } from "@/components/ForAllPage/Footer";
-import ButtonPushRoute from "@/components/QuestioPage/ButtonPushRoute";
+import ButtonPushRoute from "@/components/ForAllPage/ButtonPushRoute";
 
 export default function Home() {
   return (
