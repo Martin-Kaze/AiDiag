@@ -1,6 +1,7 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
 import { Footer } from "@/components/ForAllPage/Footer";
+
 import ButtonPushRoute from "@/components/ForAllPage/ButtonPushRoute";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen w-full">
 
       <header className="w-full"><Menu /></header>
+      
 
       <main className=" relative flex flex-1 flex-col items-center justify-center gap-4 p-8 max-w-3xl w-full mx-auto">
 

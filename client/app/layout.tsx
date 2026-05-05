@@ -4,6 +4,8 @@ import PostHogPageView from "./PostHobPageView";
 import { Public_Sans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
+import { AppSidebar } from "@/components/ForAllPage/AppSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import Script from "next/script"; // 1. Added Script import
 
 const publicSans = Public_Sans({
@@ -36,8 +38,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <PostHogPageView />
           </Suspense>
-          
+          <SidebarProvider>
+            <div className="fixed inset-y-0 left-0 z-50">
+    <AppSidebar />
+  </div>
+            
           {children}
+          </SidebarProvider>
         </StoreProvider>
       </body>
     </html>
