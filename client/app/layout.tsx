@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Suspense fallback={null}>
             <PostHogPageView />
           </Suspense>
-          <SidebarProvider>
+          <SidebarProvider defaultOpen={false}>
             <div className="fixed inset-y-0 left-0 z-50">
     <AppSidebar />
   </div>
