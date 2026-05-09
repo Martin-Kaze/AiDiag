@@ -2,6 +2,7 @@
 import { Menu } from "@/components/ForAllPage/Menu";
 import { UserInput } from "@/components/ForAllPage/UserInput";
 import AddedSympt from "@/components/ForAllPage/AddedSympt";
+import AnaliseButton from "@/components/ForAllPage/AnaliseButton";
 export default function Home() {
 
   return (
@@ -16,7 +17,7 @@ export default function Home() {
      <UserInput/>
       
     <AddedSympt/>
-    
+    <AnaliseButton/>
       </main>
 
       <footer className="border-t p-2 ">
