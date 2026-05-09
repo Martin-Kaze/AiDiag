@@ -1,8 +1,7 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
 import { UserInput } from "@/components/ForAllPage/UserInput";
-import { Badge } from "@/components/ui/badge";
-import { X  } from "lucide-react";
+import AddedSympt from "@/components/ForAllPage/AddedSympt";
 export default function Home() {
 
   return (
@@ -16,7 +15,8 @@ export default function Home() {
 
      <UserInput/>
       
-
+    <AddedSympt/>
+    
       </main>
 
       <footer className="border-t p-2 ">
