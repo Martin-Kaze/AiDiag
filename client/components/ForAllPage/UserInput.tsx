@@ -47,7 +47,7 @@ export function UserInput() {
           placeholder="I feel everyday..."
           className="min-h-50 "
           onChange={handleInput}
-          maxLength={100}
+          maxLength={250}
           value={Text}
         />
         <InputGroupAddon align="block-end" className="border-t  ">

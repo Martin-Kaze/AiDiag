@@ -12,7 +12,7 @@ const AddedSympt = () => {
   console.log(symparr);
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-2 justify-center">
 
       {symparr.map((value, index) => (
         <Badge key={index}>
