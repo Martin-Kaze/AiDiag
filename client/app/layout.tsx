@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-amber-50 font-sans text-foreground ">
+      <body className="min-h-screen  bg-amber-50 font-sans text-foreground ">
         <StoreProvider>
           <Suspense fallback={null}>
             <PostHogPageView />

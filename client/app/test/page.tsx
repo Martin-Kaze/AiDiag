@@ -1,6 +1,8 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
-
+import { UserInput } from "@/components/ForAllPage/UserInput";
+import { Badge } from "@/components/ui/badge";
+import { X  } from "lucide-react";
 export default function Home() {
 
   return (
@@ -10,9 +12,10 @@ export default function Home() {
 
       <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto  ">
 
-        <p className="text-3xl font-bold text-center"> This could happen if you have a bad posture! </p>
+        <p className="text-3xl font-bold text-center"> Describe your psyhological symptoms! </p>
 
-     yes
+     <UserInput/>
+      
 
       </main>
 
