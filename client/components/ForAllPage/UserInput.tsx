@@ -19,7 +19,7 @@ export function UserInput() {
 
   const [Text, SetText] = useState<string>("");
 
-  const [Symptom, SetSymptom] = useState<number>(1);
+  const [symptomNumb, setSymptomNumb] = useState<number>(1);
 
   const handleInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
@@ -32,8 +32,10 @@ export function UserInput() {
   const HandleAdd = ()=> {
     if(Text){
       console.log('test');
-      dispatch(setField( { key: `Symptom-${Symptom}` , value: Text  } ))
-    }
+      dispatch(setField( { key: `Symptom-${symptomNumb}` , value: Text  } ))
+      setSymptomNumb((prev) => prev + 1);
+      SetText("");
+    } 
 
   }
 
@@ -57,7 +59,7 @@ export function UserInput() {
         <InputGroupAddon align="block-start" className="border-b ">
           <InputGroupText className="font-mono font-medium  ">
             <Bg />
-            <p className=' text-black'> {`Symptom-${Symptom}`} </p>
+            <p className=' text-black'> {`Symptom-${symptomNumb}`} </p>
           </InputGroupText>
           <InputGroupButton className="ml-auto " size="icon-xs" onClick={handleClick}>
             <Eraser />
