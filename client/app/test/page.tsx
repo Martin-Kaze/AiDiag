@@ -15,7 +15,6 @@ export default function Home() {
         <p className="text-3xl font-bold text-center"> Describe your psyhological symptoms! </p>
 
      <UserInput/>
-      
     <AddedSympt/>
     <AnaliseButton/>
       </main>

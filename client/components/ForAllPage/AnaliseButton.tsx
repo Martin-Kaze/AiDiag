@@ -9,7 +9,7 @@ const AnaliseButton = () => {
       const symparr = Object.keys(value);
 
   return (
-    <ButtonPushRoute route='/analise' text='Analise' disabled={(symparr.length == 0) ? true : false}/>
+    <ButtonPushRoute  classname="w-50 bg-emerald-700" route='/analise' text='Analise' disabled={(symparr.length == 0) ? true : false}/>
   )
 }
 
