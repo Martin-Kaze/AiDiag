@@ -1,8 +1,6 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
-import { UserInput } from "@/components/ForAllPage/UserInput";
-import AddedSympt from "@/components/ForAllPage/AddedSympt";
-import AnaliseButton from "@/components/ForAllPage/AnaliseButton";
+import ExplainMore from "@/components/ForAllPage/ExplainMore";
 export default function Home() {
 
   return (
@@ -12,11 +10,10 @@ export default function Home() {
 
       <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto  ">
 
-        <p className="text-3xl font-bold text-center"> Describe your psyhological symptoms! </p>
+        <p className="text-3xl font-bold text-center"> Add more... </p>
 
-     <UserInput/>
-    <AddedSympt/>
-    <AnaliseButton/>
+      <ExplainMore/>
+      
       </main>
 
       <footer className="border-t p-2 ">
