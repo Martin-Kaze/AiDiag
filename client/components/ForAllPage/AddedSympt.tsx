@@ -12,7 +12,8 @@ const AddedSympt = () => {
   console.log(symparr);
 
   return (
-    <div className="flex flex-wrap gap-2 justify-center">
+    <>
+   <div className="flex flex-wrap gap-2 justify-center">
 
       {symparr.map((value, index) => (
         <Badge key={index}>
@@ -20,8 +21,14 @@ const AddedSympt = () => {
           {value}
         </Badge>
       ))}
-
+            
     </div>
+
+       {symparr.length > 0 ? <p className='mx-auto text-sm text-neutral-400'>Max 10 Symptoms</p> : null}
+
+
+    </>
+   
   )
 }
 
