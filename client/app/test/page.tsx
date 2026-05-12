@@ -10,7 +10,7 @@ export default function Home() {
 
       <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto  ">
 
-        <p className="text-3xl font-bold text-center"> Add more... </p>
+        <p className="text-3xl font-bold text-center"> One of your sympotms AI asalised: </p>
 
       <ExplainMore/>
       
