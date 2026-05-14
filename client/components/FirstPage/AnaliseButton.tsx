@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import ButtonPushRoute from './ButtonPushRoute'
+import ButtonPushRoute from '../ForAllPage/ButtonPushRoute'
 import { useSelector } from 'react-redux';
 import { RootState } from '@/state/store';
 

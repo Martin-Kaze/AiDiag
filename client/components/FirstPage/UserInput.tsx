@@ -31,7 +31,6 @@ export function UserInput() {
 
   const HandleAdd = ()=> {
     if(Text){
-      console.log('test');
       if(symptomNumb <= 10){
          dispatch(setField( { key: `Symptom-${symptomNumb}` , value: Text  } ))
       setSymptomNumb((prev) => prev + 1);
