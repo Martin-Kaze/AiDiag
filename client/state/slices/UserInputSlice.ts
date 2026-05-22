@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 export interface UserInput {
   selections: Record<string, any>;
@@ -15,6 +15,7 @@ const userSlice = createSlice({
     setField: (state, action: PayloadAction<{ key: string; value: any }>) => {
       const { key, value } = action.payload;
       state.selections[key] = value;
+      console.log(current(state.selections))
     },
   },
 });

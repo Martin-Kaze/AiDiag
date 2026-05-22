@@ -1,10 +1,10 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
 import { Footer } from "@/components/ForAllPage/Footer";
-import { UserInput } from "@/components/ForAllPage/UserInput";
+import { UserInput } from "@/components/FirstPage/UserInput";
 
 import AddedSympt from "@/components/ForAllPage/AddedSympt";
-import AnaliseButton from "@/components/ForAllPage/AnaliseButton";
+import AnaliseButton from "@/components/FirstPage/AnaliseButton";
 
 export default function Home() {
   return (

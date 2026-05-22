@@ -1,7 +1,17 @@
-
+'use client'
 import { Menu } from "@/components/ForAllPage/Menu";
 import ExplainMore from "@/components/ForAllPage/ExplainMore";
+import { useEffect } from "react";
+import { handleSubmit } from "./test";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
+
 export default function Home() {
+const value = useSelector((val: RootState) => val.UserInputReducer.selections);
+  useEffect(() => {
+    handleSubmit(value);
+  }, [])
+  
 
   return (
     <div className="flex flex-col min-h-screen w-full">
@@ -13,6 +23,8 @@ export default function Home() {
         <p className="text-3xl font-bold text-center"> One of your sympotms AI asalised: </p>
 
       <ExplainMore/>
+      
+      
       
       </main>
 

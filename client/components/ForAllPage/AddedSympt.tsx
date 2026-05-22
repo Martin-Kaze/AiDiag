@@ -9,7 +9,7 @@ import { RootState } from '@/state/store';
 const AddedSympt = () => {
   const value = useSelector((val: RootState) => val.UserInputReducer.selections);
   const symparr = Object.keys(value);
-  console.log(symparr);
+  
 
   return (
     <>

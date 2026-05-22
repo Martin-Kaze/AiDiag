@@ -13,7 +13,9 @@ import { Field, FieldLabel, FieldLegend, FieldSet, FieldDescription, FieldGroup 
 import { Separator } from "@/components/ui/separator";
 import CustToggleGroup from "../MutipleUse/CustToggleGroup";
 import type { InfoData } from "@/types/types";
-// Moved outside the main component for better performance
+
+
+    
 const SelectMutipleIcon = (props: { val: number }) => {
   return (
     <div className="shrink-0 w-8 h-8 my-5 rounded-full bg-green-300 text-black flex items-center justify-center text-sm font-semibold">
