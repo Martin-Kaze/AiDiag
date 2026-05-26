@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/avatar"
 
 export function CustAvatarGroup( props : any ) {
-    console.log(props.data)
+ 
   return (
     <AvatarGroup >
       <Avatar size="lg">

@@ -2,10 +2,14 @@
 import { Menu } from "@/components/ForAllPage/Menu"
 import { Footer } from "@/components/ForAllPage/Footer"
 import { authClient } from "@/lib/auth-client";
-
+import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 const Page = () => {
 
+  const [spinner, setSpinner] = useState <Boolean> (false)
+
   const handleLogin = async () => {
+    setSpinner(true);
     await authClient.signIn.social({
       provider: "google",
       callbackURL: "/dashboard",
@@ -28,12 +32,13 @@ const Page = () => {
         <div className="bg-white text-black flex items-center justify-center">
           <div className="p-8 border border-gray-200 rounded-lg shadow-sm text-center">
             <h1 className="text-2xl font-bold mb-4">YouTube Analytics</h1>
-            <button 
+            { (spinner) ? <Spinner scale={10} className="mx-auto"/> : <button 
               onClick={handleLogin} 
               className="px-6 py-2 border border-gray-300 rounded bg-gray-50 hover:bg-gray-100 font-medium text-black"
             >
               Sign in with Google
-            </button>
+            </button> }
+            
           </div>
         </div>
 
