@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert";
 import { Field, FieldLabel, FieldLegend, FieldSet, FieldDescription, FieldGroup } from "@/components/ui/field";
 import { Separator } from "@/components/ui/separator";
-import CustToggleGroup from "../MutipleUse/CustToggleGroup";
+import CustToggleGroup from "../../components/MutipleUse/CustToggleGroup";
 import type { InfoData } from "@/types/types";
 
 
