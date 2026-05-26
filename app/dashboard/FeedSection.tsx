@@ -13,10 +13,9 @@ export default async function FeedSection({
 }) {
     
 
-
-  const links = subscriptions
-    .map((sub) => sub.snippet.resourceId?.channelId)
-    .filter(Boolean);
+const links = subscriptions
+  .map((sub) => sub.snippet?.resourceId?.channelId)
+  .filter(Boolean);
 
 
 

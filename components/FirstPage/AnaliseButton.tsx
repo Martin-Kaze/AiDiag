@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/state/store';
 
 const AnaliseButton = () => {
-     const value = useSelector((val: RootState) => val.UserInputReducer.selections);
+     const value = useSelector((val: RootState) => val.UserInputReducer?.selections);
       const symparr = Object.keys(value);
 
   return (

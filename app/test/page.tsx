@@ -1,6 +1,6 @@
 'use client'
 import { Menu } from "@/components/ForAllPage/Menu";
-import ExplainMore from "@/components/ForAllPage/ExplainMore";
+import ExplainMore from "@/app/test/ExplainMore";
 import { useEffect } from "react";
 import { handleSubmit } from "./test";
 import { useSelector } from "react-redux";
