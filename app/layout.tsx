@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { AppSidebar } from "@/components/ForAllPage/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import Script from "next/script"; // 1. Added Script import
+import Script from "next/script"; 
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
