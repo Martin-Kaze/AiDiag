@@ -7,4 +7,5 @@ export const handleSubmit = async (data : any) => {
   })
   const result = await response.json();
   console.log('rez:',result);
+  return result;
 }
