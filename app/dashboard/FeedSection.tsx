@@ -4,7 +4,8 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area"
 import GiveChannelInfo from "@/lib/ChannelInfo";
-
+import AnaliseButton from "@/components/FirstPage/AnaliseButton";
+import { Separator } from "@/components/ui/separator"
 
 export default async function FeedSection({
   subscriptions,
@@ -43,8 +44,12 @@ const links = subscriptions
 
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       
+      <AnaliseButton feed={channelInfos} />
+
+      <Separator className="my-2"/>
+
       <h2 className="text-xl font-bold">Channel Feeds</h2>
 
       <ScrollArea className="h-50 w-full rounded-md border ">
