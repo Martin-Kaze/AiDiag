@@ -1,7 +1,7 @@
 
 import { Footer } from "@/components/ForAllPage/Footer";
 import { Menu } from "@/components/ForAllPage/Menu";
-import { CustAvatarGroup } from "@/components/ForDashboad/CustAvatarGroup";
+import { CustAvatarGroup } from "@/app/dashboard/CustAvatarGroup";
 import FeedSection from "./FeedSection";
 import { Suspense } from "react";
 import { Spinner } from "@/components/ui/spinner"
@@ -15,6 +15,7 @@ export default async function Dashboard() {
 
 
   const data = await youtube();
+  console.log('data:' , data);
 
   return (
 
@@ -27,13 +28,13 @@ export default async function Dashboard() {
       <main className="relative flex flex-1 flex-col items-center justify-center gap-4 p-8 max-w-3xl w-full mx-auto">
 
 
-          <p className="text-3xl font-bold text-center"> Please tell me how you want ot feel or feel you get absed on your subvritopn feed </p>
+          <p className="text-xl font-bold text-center"> Tell us how you're feeling — we'll match it against your subscriptions. </p>
             
               
             <UserInput/>
                   
                 <AddedSympt/>
-                <AnaliseButton/>
+               
 
       
 
