@@ -16,7 +16,7 @@ export default function Home() {
       <main className=" relative flex flex-1 flex-col items-center justify-center gap-4 p-8 max-w-3xl w-full mx-auto">
 
      
- <p className="text-3xl font-bold text-center"> Describe your psyhological symptoms! </p>
+ <p className="text-3xl font-bold text-center"> Your subscriptions, analyzed for your wellbeing. </p>
 
      <UserInput/>
       
