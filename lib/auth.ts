@@ -1,18 +1,20 @@
 import { betterAuth } from "better-auth";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { client } from "./db";
 
 export const auth = betterAuth({
+  database: mongodbAdapter(client.db(), { client }),
 
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      
-     scope: [
-  "openid",
-  "email",
-  "https://www.googleapis.com/auth/youtube.readonly",
-],
-
+      scope: [
+        "openid",
+        "email",
+        "https://www.googleapis.com/auth/youtube.readonly",
+      ],
+      prompt: "consent", // needed to get refresh token
     },
   },
 });

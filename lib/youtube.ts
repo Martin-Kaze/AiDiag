@@ -6,10 +6,7 @@ import { redirect } from "next/navigation";
 
 const youtube = cache(async () => {
   let tokens = null;
-  
-  
   try {
-    
     const session = await auth.api.getSession({
       headers: await headers(),
     });
@@ -26,7 +23,7 @@ const youtube = cache(async () => {
 
 
  if (!tokens?.accessToken) {
-    redirect("/login?error=reauth"); // Tell the login page to wipe the session
+    redirect("/login?error=reauth"); 
   }
 
   const subscriptions: any[] = [];
@@ -46,10 +43,8 @@ const youtube = cache(async () => {
     
     const data = await response.json();
     
-    // ADD THIS to see why it's failing:
     if (data.error) {
       console.error("YOUTUBE API ERROR:", data.error);
-      // Force a re-auth if the token is invalid/expired
       if (data.error.code === 401) redirect("/login?error=reauth"); 
       break; 
     }
