@@ -1,10 +1,7 @@
 
 import { Menu } from "@/components/ForAllPage/Menu";
 import { Footer } from "@/components/ForAllPage/Footer";
-import { UserInput } from "@/components/FirstPage/UserInput";
-
-import AddedSympt from "@/components/ForAllPage/AddedSympt";
-import AnaliseButton from "@/components/FirstPage/AnaliseButton";
+import { LoginForm } from "@/app/login/components/login-form";
 
 export default function Home() {
   return (
@@ -13,15 +10,15 @@ export default function Home() {
       <header className="w-full"><Menu /></header>
       
 
-      <main className=" relative flex flex-1 flex-col items-center justify-center gap-4 p-8 max-w-3xl w-full mx-auto">
+      <main className=" relative flex flex-1 flex-col  justify-center gap-4  mx-auto">
 
      
- <p className="text-3xl font-bold text-center"> Your subscriptions, analyzed for your wellbeing. </p>
+ <p className="text-3xl font-bold text-center mb-10"> Welcome </p>
 
-     <UserInput/>
-      
-    <AddedSympt/>
-    <AnaliseButton/>
+ <button  >
+
+ </button>
+
       </main>
 
      <Footer/>
