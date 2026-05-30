@@ -1,67 +1,40 @@
 
-import { Footer } from "@/components/ForAllPage/Footer";
+
+
 import { Menu } from "@/components/ForAllPage/Menu";
-import { CustAvatarGroup } from "@/app/dashboard/CustAvatarGroup";
-import FeedSection from "./FeedSection";
-import { Suspense } from "react";
-import { Spinner } from "@/components/ui/spinner"
-import { Skeleton } from "@/components/ui/skeleton"
-import youtube from "@/lib/youtube";
-import { UserInput } from '@/components/FirstPage/UserInput'
-import AnaliseButton from '@/components/FirstPage/AnaliseButton'
-import AddedSympt from '@/components/ForAllPage/AddedSympt'
+import youtube from '@/lib/youtube';
+import { CustAvatarGroup } from './CustAvatarGroup';
+import { DashboardClient } from "./DashboardClient";
 
-export default async function Dashboard() {
+const getdata = async () =>{
+return youtube();
+}
 
 
-  const data = await youtube();
-  console.log('data:' , data);
+
+export default async function Page() {
+  
+  const data = await getdata();
+  
 
   return (
-
     <div className="flex flex-col min-h-screen w-full">
 
-      <header className="w-full">
-        <Menu />
-      </header>
-
-      <main className="relative flex flex-1 flex-col items-center justify-center gap-4 p-8 max-w-3xl w-full mx-auto">
-
-
-          <p className="text-xl font-bold text-center"> Tell us how you're feeling — we'll match it against your subscriptions. </p>
-            
-              
-            <UserInput/>
-                  
-                <AddedSympt/>
-               
+      <header className="w-full"><Menu /></header>
 
       
+      <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto">
 
-        <p className="text-3xl font-bold text-center"> Your subcriptions</p>
+      <CustAvatarGroup data={data} />
 
-        <CustAvatarGroup data={data} />
-
-
-        <Suspense fallback={<> <p> <Spinner className="justify-center mx-auto" /> Loading channel feeds...</p> <br></br>  <div className="flex w-full max-w-sm flex-col gap-2">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <div className="flex gap-4" key={index}>
-              <Skeleton className="h-4 flex-1" />
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-4 w-20" />
-            </div>
-          ))}
-        </div> </>}>
-
-          <FeedSection subscriptions={data} />
-        </Suspense>
-
-
+      <DashboardClient/>
+       
       </main>
 
-      <Footer />
+      <footer className="border-t p-2 mt-auto">
+        <p className="text-neutral-700 text-center">© 2026 Wellness.chat</p>
+      </footer>
 
     </div>
-
   );
 }
