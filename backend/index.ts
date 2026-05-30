@@ -22,7 +22,7 @@ console.log(JSON.stringify(Person.toJSONSchema(), null, 2));
 
 const result = await genAI.models.generateContent({
   model: "gemini-3.1-flash-lite-preview",
-  contents: "Return a person with a name and age.",
+  contents: "Return a woman old person with a name and age. and all other info",
   config: {
     responseMimeType: "application/json",
     responseJsonSchema: Person.toJSONSchema(),
@@ -30,4 +30,5 @@ const result = await genAI.models.generateContent({
   },
 });
 
+console.log('--------------Results---------------');
 console.log(result.text);

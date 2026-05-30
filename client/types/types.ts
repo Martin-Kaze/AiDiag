@@ -1,5 +1,6 @@
 export interface UserSymptoms {
   symptom: string;
-  sympotmLenght: number;   // Matching the spelling in your function
+  sympotmLenght: number;   
   symptomSeverity: number;
-}
+};
+export type InfoData = { Title : string ; MoreInfo : string};
