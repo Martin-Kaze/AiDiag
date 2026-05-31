@@ -37,7 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen  bg-amber-50 font-sans text-foreground ">
         <StoreProvider>
           <Suspense fallback={null}>
-             {/* Google Analytics - G-QQTSCDPZXN <PostHogPageView /> */ } 
+ 
           </Suspense>
           <SidebarProvider defaultOpen={false}>
             <div className="fixed inset-y-0 left-0 z-50">
