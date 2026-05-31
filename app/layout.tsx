@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { AppSidebar } from "@/components/ForAllPage/AppSidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { Toaster } from '@/components/ui/sonner'
 import Script from "next/script"; 
 
 const publicSans = Public_Sans({
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           </SidebarProvider>
         </StoreProvider>
+        <Toaster/>
       </body>
     </html>
   );
