@@ -1,28 +1,21 @@
-
+import { Hero } from "@/components/Hero";
 import { Menu } from "@/components/ForAllPage/Menu";
-import { Footer } from "@/components/ForAllPage/Footer";
-import { LoginForm } from "@/app/login/components/login-form";
 
-export default function Home() {
+export default function Page() {
+  
   return (
-    <div className="flex flex-col min-h-screen w-full">
+  <>
+   <div className="flex flex-col min-h-screen w-full">
+  <Menu nosidebar={true}/>
+        <main >
+        <Hero className=""/>;
 
-      <header className="w-full"><Menu /></header>
-      
+        </main>
+  
 
-      <main className=" relative flex flex-1 flex-col  justify-center gap-4  mx-auto">
+ 
 
-     
- <p className="text-3xl font-bold text-center mb-10"> Welcome </p>
-
- <button  >
-
- </button>
-
-      </main>
-
-     <Footer/>
-
-    </div>
-  );
+  </div>
+  </>
+  )
 }
