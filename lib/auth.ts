@@ -14,7 +14,8 @@ export const auth = betterAuth({
         "email",
         "https://www.googleapis.com/auth/youtube.readonly",
       ],
-      prompt: "consent", // needed to get refresh token
+      prompt: "consent", 
+      accessType: "offline"
     },
   },
 });
