@@ -1,11 +1,29 @@
-import { google } from '@ai-sdk/google';
+import { deepseek } from '@ai-sdk/deepseek'
 import { streamText, convertToModelMessages } from 'ai';
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
+const getMessageText = (m: any): string =>
+  m.parts
+    ?.filter((p: any) => p.type === 'text')
+    ?.map((p: any) => p.text)
+    ?.join('') ?? m.content ?? ''
+
+const lastMessage = messages.at(-1)
+if (getMessageText(lastMessage).length > 4000) {
+  return new Response('Message too long', { status: 400 })
+}
+
+const totalChars = messages.reduce((acc: number, m: any) => {
+  return acc + getMessageText(m).length
+}, 0)
+
+if (totalChars > 8000) {
+  return new Response('Conversation too long', { status: 400 })
+}
   const result = await streamText({
-    model: google('gemini-3.1-flash-lite'), 
+     model: deepseek('deepseek-v4-flash'),
     messages: await convertToModelMessages(messages),
     
     onFinish: (event) => {
