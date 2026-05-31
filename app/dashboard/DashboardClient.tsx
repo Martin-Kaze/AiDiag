@@ -1,9 +1,8 @@
 "use client";
-
 import { useChat } from '@ai-sdk/react';
 import { useState, SubmitEvent } from "react";
 import type { UIMessage } from "ai";
-
+import { toast } from 'sonner'
 const initialMessages: UIMessage[] = [
     {
         id: "welcome",
@@ -20,11 +19,12 @@ const initialMessages: UIMessage[] = [
 
 export const DashboardClient = ( ) => {
     const [input, setInput] = useState("");
-
-    const { messages, status, sendMessage, error } = useChat({
-        messages: initialMessages,
-    });
-
+const { messages, status, sendMessage, error } = useChat({
+    messages: initialMessages,
+    onError: (error: any) => {
+        toast.error(error.message)
+    }
+});
     const isLoading = status === 'submitted' || status === 'streaming';
 
     const onSubmit = (e: SubmitEvent) => {
