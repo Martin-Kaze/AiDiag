@@ -12,7 +12,7 @@ export const auth = betterAuth({
       scope: [
         "openid",
         "email",
-        "https://www.googleapis.com/auth/youtube.readonly",
+        "profile",
       ],
       prompt: "consent", 
       accessType: "offline"

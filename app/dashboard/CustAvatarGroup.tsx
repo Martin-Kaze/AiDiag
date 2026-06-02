@@ -1,3 +1,4 @@
+'use client'
 import {
   Avatar,
   AvatarFallback,
@@ -5,10 +6,12 @@ import {
   AvatarGroupCount,
   AvatarImage,
 } from "@/components/ui/avatar"
-
+import YtConnButt from "./YtConnButt"
 export function CustAvatarGroup( props : any ) {
  
   return (
+
+    <>
     <AvatarGroup >
       <Avatar size="lg">
         <AvatarImage src={props?.data[0]?.snippet?.thumbnails?.default?.url ?? "N"} alt={props?.data[0]?.snippet?.title} />
@@ -28,5 +31,7 @@ export function CustAvatarGroup( props : any ) {
     null
       }
     </AvatarGroup>
+    </>
+    
   )
 }

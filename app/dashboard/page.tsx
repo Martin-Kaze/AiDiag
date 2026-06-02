@@ -1,11 +1,7 @@
-
-
-
 import { Menu } from "@/components/ForAllPage/Menu";
 import youtube from '@/lib/youtube';
-import { CustAvatarGroup } from './CustAvatarGroup';
 import { DashboardClient } from "./DashboardClient";
-
+import TestComp from "../test/TestComp";
 const getdata = async () =>{
 return youtube();
 }
@@ -14,7 +10,10 @@ return youtube();
 
 export default async function Page() {
   
-  const data = await getdata();
+ 
+     const data = await getdata();
+
+ 
   
 
   return (
@@ -23,11 +22,13 @@ export default async function Page() {
       <header className="w-full"><Menu /></header>
 
       
-      <main className="flex flex-1 flex-col gap-6 p-8 max-w-3xl w-full mx-auto">
+       <p className="text-3xl font-bold text-center"> Text chat </p>
 
-      <CustAvatarGroup data={data} />
-
-      <DashboardClient/>
+      <main className="grid grid-cols-[auto_1fr_1fr]  p-8  w-full">
+      
+      
+      <TestComp data={data}/>
+      <DashboardClient />
        
       </main>
 

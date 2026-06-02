@@ -38,9 +38,9 @@ const { messages, status, sendMessage, error } = useChat({
     return (
     
         <>
-                <p className="text-3xl font-bold text-center"> Text chat </p>
+               
 
-                 <div className="flex flex-col h-150 max-w-2xl w-full mx-auto p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
+                 <div className=" col-span-2 flex flex-col h-150 max-w-[80%] w-full ml-5 p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
         
    
           <div className="border-b pb-4 mb-4">
