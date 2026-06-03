@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, SubmitEvent, useEffect } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import type { UIMessage } from "ai";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
@@ -65,8 +65,8 @@ export const DashboardClient = () => {
   }, [quickQuestion, hasYoutubeContext, Youtubers, sendMessage]);
 
   const isLoading = status === "submitted" || status === "streaming";
-
-  const onSubmit = (e: SubmitEvent) => {
+  
+const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!input.trim()) return;
