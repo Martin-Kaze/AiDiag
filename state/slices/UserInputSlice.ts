@@ -2,12 +2,17 @@ import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 
 export interface UserInput {
   selections: Record<string, any>;
-  list : any
+  list : any,
+  QuickQuestion : string;
+  YoutuberList : {},
+
 }
 
 const initialState: UserInput = {
   selections: {},
   list : null,
+  QuickQuestion : "",
+   YoutuberList : {},
 };
 
 const userSlice = createSlice({
@@ -24,8 +29,15 @@ const userSlice = createSlice({
       state.list =  action.payload;
      
     },
+    setQuestion : (state, action: PayloadAction<string>) =>{
+      state.QuickQuestion = action.payload;
+    },
+    setYoutubeList : (state, action: PayloadAction<any>) =>{
+      state.YoutuberList = action.payload;
+    },
   },
+  
 });
 
-export const { setField, setSubList } = userSlice.actions;
+export const { setField, setSubList, setQuestion, setYoutubeList } = userSlice.actions;
 export default userSlice.reducer;

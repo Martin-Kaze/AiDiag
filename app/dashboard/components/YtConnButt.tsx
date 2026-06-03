@@ -1,6 +1,7 @@
 'use client'
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button"
 const YtConnButt = () => {
 const router = useRouter();
    const handleConnect = async () => {
@@ -11,9 +12,9 @@ const router = useRouter();
   };
   
   return (
-   <button onClick={handleConnect}>
+   <Button className="bg-red-400" onClick={handleConnect}>
   Connect YouTube
-</button>
+</Button>
   )
 }
 

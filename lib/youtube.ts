@@ -43,6 +43,9 @@ const youtube = cache(async () => {
     const data = await response.json();
 
     if (data.error) {
+      if (data.error?.code === 401 || data.error?.status === 401 || data.error?.code === 403 || data.error?.status === 403) {
+      return null; 
+    }
       console.error("YOUTUBE API ERROR:", data.error);
       break;
     }

@@ -1,18 +1,13 @@
 import { Menu } from "@/components/ForAllPage/Menu";
-import youtube from '@/lib/youtube';
-import { DashboardClient } from "./DashboardClient";
-import TestComp from "../test/TestComp";
-const getdata = async () =>{
-return youtube();
-}
-
-
-
+import { DashboardClient } from "./components/DashboardClient";
+import { CustAvatarGroup } from "./components/CustAvatarGroup";
+import { Card } from "@/components/ui/card";
+import SideCard from "./components/SideCard";
+import QuestionSideCard from "./components/QuestionSideCard";
 export default async function Page() {
   
  
-     const data = await getdata();
-
+  
  
   
 
@@ -24,13 +19,14 @@ export default async function Page() {
       
        <p className="text-3xl font-bold text-center"> Text chat </p>
 
-      <main className="grid grid-cols-[auto_1fr_1fr]  p-8  w-full">
-      
-      
-      <TestComp data={data}/>
+     <main className=" flex  items-start p-8 w-full  mx-auto">
+      <div className="flex flex-col gap-5">
+        <SideCard/>
+        <QuestionSideCard/>
+      </div>
+    
       <DashboardClient />
-       
-      </main>
+</main>
 
       <footer className="border-t p-2 mt-auto">
         <p className="text-neutral-700 text-center">© 2026 Wellness.chat</p>
