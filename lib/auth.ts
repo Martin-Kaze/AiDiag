@@ -5,6 +5,11 @@ import { client } from "./db";
 export const auth = betterAuth({
   database: mongodbAdapter(client.db(), { client }),
 
+  trustedOrigins: [
+    "http://localhost:3000",
+    "https://wellness.chat",
+  ],
+
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
