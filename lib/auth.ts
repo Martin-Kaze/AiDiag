@@ -8,6 +8,8 @@ export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:3000",
     "https://wellness.chat",
+    "https://www.wellness.chat",
+    
   ],
 
   socialProviders: {
