@@ -1,7 +1,19 @@
 import { deepseek } from "@ai-sdk/deepseek";
 import { streamText, convertToModelMessages } from "ai";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
 
 export async function POST(req: Request) {
+  
+  const session = await auth.api.getSession({
+  headers: await headers(),
+});
+
+if (!session) {
+  return new Response("Unauthorized", { status: 401 });
+}
+
   const { messages, hiddenContext } = await req.json();
 
   console.log("HIDDEN CONTEXT RECEIVED:", hiddenContext);
