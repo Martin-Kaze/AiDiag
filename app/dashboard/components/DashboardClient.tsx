@@ -8,6 +8,29 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import { DefaultChatTransport } from "ai";
 
+function renderText(text : any) {
+  const words = text.split(" ");
+  let starts = false;
+
+  return words.map((word : any, i : any) => {
+    if (word.startsWith("**")) {
+      starts = true;
+    }
+
+    const isBold = starts;
+
+    if (word.endsWith("**")) {
+      starts = false;
+    }
+
+    return (
+      <span key={i} className={isBold ? "font-bold" : ""}>
+        {word.replaceAll("**", "")}{" "}
+      </span>
+    );
+  });
+}
+
 const initialMessages: UIMessage[] = [
   {
     id: "welcome",
@@ -45,10 +68,6 @@ export const DashboardClient = () => {
       toast.error(error.message);
     },
   });
-
-  useEffect(() => {
-    console.log("YOUTUBERS IN REDUX:", Youtubers);
-  }, [Youtubers]);
 
   useEffect(() => {
     if (!quickQuestion) return;
@@ -105,10 +124,12 @@ const onSubmit = (e: FormEvent<HTMLFormElement>) => {
               </span>
 
               <div className="whitespace-pre-wrap">
-                {m.parts?.map((part, i) =>
-                  part.type === "text" ? <p key={i}>{part.text}</p> : null
-                )}
-              </div>
+  {m.parts?.map((part, i) =>
+    part.type === "text" ? (
+      <p key={i}>{renderText(part.text)}</p>
+    ) : null
+  )}
+</div>
             </div>
           ))}
 
