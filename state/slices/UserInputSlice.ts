@@ -1,18 +1,19 @@
-import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+type YoutuberItem = { name: string; channelId: string };
 
 export interface UserInput {
   selections: Record<string, any>;
-  list : any,
-  QuickQuestion : string;
-  YoutuberList : {},
-
+  list: any;
+  QuickQuestion: string;
+  YoutuberList: YoutuberItem[];
 }
 
 const initialState: UserInput = {
   selections: {},
-  list : null,
-  QuickQuestion : "",
-   YoutuberList : {},
+  list: null,
+  QuickQuestion: "",
+  YoutuberList: [],
 };
 
 const userSlice = createSlice({
@@ -22,22 +23,15 @@ const userSlice = createSlice({
     setField: (state, action: PayloadAction<{ key: string; value: any }>) => {
       const { key, value } = action.payload;
       state.selections[key] = value;
-      console.log(current(state.selections))
     },
-    setSubList: (state, action: PayloadAction<any>) => {
-     
-      state.list =  action.payload;
-     
-    },
-    setQuestion : (state, action: PayloadAction<string>) =>{
+    setQuestion: (state, action: PayloadAction<string>) => {
       state.QuickQuestion = action.payload;
     },
-    setYoutubeList : (state, action: PayloadAction<any>) =>{
+    setYoutubeList: (state, action: PayloadAction<YoutuberItem[]>) => {
       state.YoutuberList = action.payload;
     },
   },
-  
 });
 
-export const { setField, setSubList, setQuestion, setYoutubeList } = userSlice.actions;
+export const { setField, setQuestion, setYoutubeList } = userSlice.actions;
 export default userSlice.reducer;

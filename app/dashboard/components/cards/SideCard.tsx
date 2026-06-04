@@ -1,4 +1,4 @@
-
+'use client'
 import {
   Card,
   CardAction,
@@ -8,16 +8,21 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { CustAvatarGroup } from "./CustAvatarGroup"
+import YtConnButt from "./buttons/YtConnButt"
+import FetchYoutubeButt from "./buttons/FetchYoutubeButt"
+import { useSelector } from "react-redux"
+import { RootState } from "@/state/store"
 
 const SideCard = () => {
+
+  const data = useSelector( (data: RootState) => data.UserInputReducer.YoutuberList);
+
   return (
     <Card className=" mx-auto w-full min-w-50 pt-0">
      
       <CardHeader>
         <CardAction>
-          <Badge variant="secondary">Connected</Badge>
+        { (data && data.length > 0) ? <Badge className="bg-green-200" variant="secondary">Have Data</Badge> : <Badge variant="destructive">No Data</Badge>}
         </CardAction>
         <CardTitle>Connect Social Media</CardTitle>
         <CardDescription>
@@ -25,7 +30,11 @@ const SideCard = () => {
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <CustAvatarGroup/>
+        
+        <YtConnButt/>
+
+        <FetchYoutubeButt/>
+
       </CardFooter>
     </Card>
   )

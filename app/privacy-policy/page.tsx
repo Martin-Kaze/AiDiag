@@ -7,22 +7,36 @@ export default function PrivacyPolicy() {
       <header className="w-full"><Menu /></header>
       <main className="flex flex-1 flex-col items-center justify-center p-8 max-w-2xl w-full mx-auto">
         <h1 className="text-2xl font-medium text-neutral-800 mb-2">Privacy Policy</h1>
-        <p className="text-neutral-400 text-sm mb-8">Last updated: 2026</p>
-        <div className="w-full space-y-4 text-sm text-neutral-600 leading-relaxed">
-          <p>Your privacy matters to us. Here is exactly what we collect and why.</p>
+        <p className="text-neutral-400 text-sm mb-8">Last updated: June 2026</p>
+        <div className="w-full space-y-6 text-sm text-neutral-600 leading-relaxed text-left">
+
+          <p>Wellness.chat is a tool that analyses your YouTube subscriptions to give you personalised wellness insights. Here is exactly what happens with your data.</p>
+
           <div>
-            <p className="font-medium text-neutral-800 mb-1">What we collect</p>
-            <p>everything...</p>
+            <p className="font-medium text-neutral-800 mb-1">What we access</p>
+            <p>When you connect YouTube, we request read-only access to your subscription list via the YouTube Data API. We access your Google account email and name for login purposes only.</p>
           </div>
+
+          <div>
+            <p className="font-medium text-neutral-800 mb-1">What we do with it</p>
+            <p>Your subscription data is sent directly to an AI model (DeepSeek) to generate insights. That is all. We do not store your subscription list, channel names, or any YouTube data on our servers. The data is used in the moment and discarded.</p>
+          </div>
+
           <div>
             <p className="font-medium text-neutral-800 mb-1">What we never do</p>
-            <p>We never sell, share, or rent your data to third parties. Ever. (Atleast now)</p>
+            <p>We never store your YouTube subscription data. We never sell, share, or rent your data to third parties. We never use your data for advertising.</p>
           </div>
+
           <div>
-           
+            <p className="font-medium text-neutral-800 mb-1">YouTube API Services</p>
+            <p>Wellness.chat uses YouTube API Services. By using our app, you also agree to the <a href="https://policies.google.com/privacy" className="underline" target="_blank" rel="noreferrer">Google Privacy Policy</a>. You can revoke our access to your YouTube data at any time via your <a href="https://myaccount.google.com/permissions" className="underline" target="_blank" rel="noreferrer">Google Account permissions page</a>.</p>
+          </div>
+
+          <div>
             <p className="font-medium text-neutral-800 mb-1">Contact</p>
             <p>Questions? Email us at <a href="mailto:yourwellnesschatplan@gmail.com" className="underline">yourwellnesschatplan@gmail.com</a></p>
           </div>
+
         </div>
       </main>
       <Footer />
