@@ -15,7 +15,7 @@ interface HeroProps {
 }
 
 const Hero = ({
-  heading = "Wellness AI",
+  heading = "Wellness.chat",
   subheading = "built to help you, be better",
   description = "Analyse your behaviour, social media, and daily patterns to help you become calmer, healthier and more at peace.",
   buttons = {
