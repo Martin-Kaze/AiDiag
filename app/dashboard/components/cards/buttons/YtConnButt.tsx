@@ -23,7 +23,7 @@ const YtConnButt = () => {
     });
   };
 
-  if (connected) return null; 
+ 
 
   return (
     <Button className="bg-red-400" onClick={handleConnect}>
