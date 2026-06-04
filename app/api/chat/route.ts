@@ -16,9 +16,6 @@ if (!session) {
 
   const { messages, hiddenContext } = await req.json();
 
-  console.log("HIDDEN CONTEXT RECEIVED:", hiddenContext);
-  console.log("HAS CONTEXT:", Array.isArray(hiddenContext), hiddenContext?.length);
-
   const getMessageText = (m: any): string =>
     m.parts
       ?.filter((p: any) => p.type === "text")
