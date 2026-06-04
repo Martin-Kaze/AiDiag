@@ -1,9 +1,7 @@
 import { Menu } from "@/components/ForAllPage/Menu";
 import { DashboardClient } from "./components/DashboardClient";
-import { CustAvatarGroup } from "./components/CustAvatarGroup";
-import { Card } from "@/components/ui/card";
-import SideCard from "./components/SideCard";
-import QuestionSideCard from "./components/QuestionSideCard";
+import SideCard from "./components/cards/SideCard";
+import QuestionSideCard from "./components/cards/QuestionSideCard";
 export default async function Page() {
   
  
@@ -15,9 +13,6 @@ export default async function Page() {
     <div className="flex flex-col min-h-screen w-full">
 
       <header className="w-full"><Menu /></header>
-
-      
-       <p className="text-3xl font-bold text-center"> Text chat </p>
 
      <main className=" flex  items-start p-8 w-full  mx-auto">
       <div className="flex flex-col gap-5">
