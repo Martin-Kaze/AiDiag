@@ -9,7 +9,6 @@ export default function PrivacyPolicy() {
         <h1 className="text-2xl font-medium text-neutral-800 mb-2">Privacy Policy</h1>
         <p className="text-neutral-400 text-sm mb-8">Last updated: June 2026</p>
         <div className="w-full space-y-6 text-sm text-neutral-600 leading-relaxed text-left">
-
           <p>Wellness.chat is a tool that analyses your YouTube subscriptions to give you personalised wellness insights. Here is exactly what happens with your data.</p>
 
           <div>
@@ -27,6 +26,18 @@ export default function PrivacyPolicy() {
             <p>We never store your YouTube subscription data. We never sell, share, or rent your data to third parties. We never use your data for advertising.</p>
           </div>
 
+          {/* NEW SECTION 1 — fixes "data protection mechanisms" */}
+          <div>
+            <p className="font-medium text-neutral-800 mb-1">How we protect your data</p>
+            <p>All data transmitted between your browser and our servers is encrypted in transit using HTTPS/TLS. Your subscription data is passed directly to the AI model over an encrypted connection and is never written to disk or stored in any database. We do not log the content of your YouTube subscription list.</p>
+          </div>
+
+          {/* NEW SECTION 2 — fixes "retention or deletion of Google user data" */}
+          <div>
+            <p className="font-medium text-neutral-800 mb-1">Data retention and deletion</p>
+            <p>We do not retain your YouTube subscription data. It is processed in memory to generate your insights and immediately discarded — nothing is written to our servers. Your Google account email and name are stored only for the purpose of maintaining your login session. You can delete your account and all associated data at any time by emailing us at <a href="mailto:yourwellnesschatplan@gmail.com" className="underline">yourwellnesschatplan@gmail.com</a> with the subject line "Delete my account". We will action this within 30 days.</p>
+          </div>
+
           <div>
             <p className="font-medium text-neutral-800 mb-1">YouTube API Services</p>
             <p>Wellness.chat uses YouTube API Services. By using our app, you also agree to the <a href="https://policies.google.com/privacy" className="underline" target="_blank" rel="noreferrer">Google Privacy Policy</a>. You can revoke our access to your YouTube data at any time via your <a href="https://myaccount.google.com/permissions" className="underline" target="_blank" rel="noreferrer">Google Account permissions page</a>.</p>
@@ -36,7 +47,6 @@ export default function PrivacyPolicy() {
             <p className="font-medium text-neutral-800 mb-1">Contact</p>
             <p>Questions? Email us at <a href="mailto:yourwellnesschatplan@gmail.com" className="underline">yourwellnesschatplan@gmail.com</a></p>
           </div>
-
         </div>
       </main>
       <Footer />
