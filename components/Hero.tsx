@@ -16,8 +16,8 @@ interface HeroProps {
 
 const Hero = ({
   heading = "Wellness.chat",
-  subheading = "built to help you, be better",
-  description = "Analyse your behaviour, social media, and daily patterns to help you become calmer, healthier and more at peace.",
+  subheading = "understand how your YouTube habits shape your wellbeing",
+  description = "Wellness.chat connects to your YouTube account (read-only) and uses AI to analyse your subscriptions — giving you personalised insights into how your content habits may be affecting your mental health and daily mood. We never post, modify, or store your YouTube data.",
   buttons = {
     primary: { text: "Get Started", url: "/login" },
     secondary: { text: "Read Terms", url: "/terms" },
@@ -26,14 +26,11 @@ const Hero = ({
 }: HeroProps) => {
   return (
     <section className={cn("relative min-h-screen overflow-hidden bg-stone-50", className)}>
-
       <div className="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-rose-100/60 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-80 w-80 rounded-full bg-sky-100/50 blur-3xl" />
 
-     <div className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-16 px-6 lg:flex-row lg:gap-20 lg:px-16">
-
+      <div className="relative z-10 flex min-h-screen w-full flex-col items-center justify-center gap-16 px-6 lg:flex-row lg:gap-20 lg:px-16">
         <div className="flex flex-col gap-6 lg:w-[55%]">
-
           <div className="space-y-1">
             <h1 className="text-[clamp(2.8rem,6vw,5.5rem)] font-semibold leading-[1.05] tracking-tight text-stone-900">
               {heading}
@@ -49,22 +46,37 @@ const Hero = ({
             {description}
           </p>
 
+          {/* How it works — satisfies Google's "clear purpose" requirement */}
+          <ol className="max-w-md space-y-1 text-[13px] text-stone-400">
+            <li>1. Connect your YouTube account (read-only)</li>
+            <li>2. Our AI analyses your subscriptions</li>
+            <li>3. Get personalised wellness insights</li>
+          </ol>
+
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Button asChild size="lg" className="group rounded-full bg-stone-900 px-8 text-stone-50 hover:bg-stone-700">
+            <Button
+              asChild
+              size="lg"
+              className="group rounded-full bg-stone-900 px-8 text-stone-50 hover:bg-stone-700"
+            >
               <a href={buttons.primary?.url}>
                 {buttons.primary?.text}
                 <ArrowUpRight className="ml-2 size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
             </Button>
-            <Button asChild variant="ghost" className="rounded-full text-stone-400 underline underline-offset-4 hover:text-stone-700">
+            <Button
+              asChild
+              variant="ghost"
+              className="rounded-full text-stone-400 underline underline-offset-4 hover:text-stone-700"
+            >
               <a href={buttons.secondary?.url}>{buttons.secondary?.text}</a>
             </Button>
           </div>
         </div>
+
         <div className="relative flex items-center justify-center lg:w-[45%]">
           <img src="/well.svg" alt="Wellness illustration" />
         </div>
-
       </div>
     </section>
   );
