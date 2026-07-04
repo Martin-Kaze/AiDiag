@@ -2,6 +2,8 @@ import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import Link from "next/link"
+import { buttonVariants } from "@/components/ui/button"
 
 interface HeroProps {
   heading?: string;
@@ -19,7 +21,7 @@ const Hero = ({
   subheading = "understand how your YouTube habits shape your wellbeing",
   description = "Wellness.chat connects to your YouTube account (read-only) and uses AI to analyse your subscriptions — giving you personalised insights into how your content habits may be affecting your mental health and daily mood. We never post, modify, or store your YouTube data.",
   buttons = {
-    primary: { text: "Get Started", url: "/login" },
+    primary: { text: "Get Started", url: "/dashboard" },
     secondary: { text: "Read Terms", url: "/terms" },
   },
   className,
@@ -54,23 +56,28 @@ const Hero = ({
           </ol>
 
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Button
-              asChild
-              size="lg"
-              className="group rounded-full bg-stone-900 px-8 text-stone-50 hover:bg-stone-700"
+            <Link
+              className={buttonVariants({
+                size: "lg", // CHANGED = to :
+                className: "group rounded-full bg-stone-900 px-8 text-stone-50 hover:bg-stone-700"
+              })}
+              href={buttons.primary?.url ?? "#"}
             >
-              <a href={buttons.primary?.url}>
-                {buttons.primary?.text}
-                <ArrowUpRight className="ml-2 size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-            </Button>
-            <Button
-              asChild
-              variant="ghost"
-              className="rounded-full text-stone-400 underline underline-offset-4 hover:text-stone-700"
+              {buttons.primary?.text}
+              <ArrowUpRight className="ml-2 size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+
+            <Link
+              className={buttonVariants({
+                size: "lg", // CHANGED = to :
+                className: "group rounded-full bg-stone-900 px-8 text-stone-50 hover:bg-stone-700"
+              })}
+              href={buttons.secondary?.url ?? "#"}
             >
-              <a href={buttons.secondary?.url}>{buttons.secondary?.text}</a>
-            </Button>
+              {buttons.secondary?.text}
+              <ArrowUpRight className="ml-2 size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+
           </div>
         </div>
 
