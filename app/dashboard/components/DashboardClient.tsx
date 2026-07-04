@@ -1,12 +1,13 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect } from "react";
 import type { UIMessage } from "ai";
 import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import { DefaultChatTransport } from "ai";
+import { DrawerNonModal } from "./DrawerNonModal";
 
 function renderText(text : any) {
   const words = text.split(" ");
@@ -85,7 +86,7 @@ export const DashboardClient = () => {
 
   const isLoading = status === "submitted" || status === "streaming";
   
-const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+const onSubmit = (e: any) => {
     e.preventDefault();
 
     if (!input.trim()) return;
@@ -104,16 +105,21 @@ const onSubmit = (e: FormEvent<HTMLFormElement>) => {
 
   return (
     <>
-      <div className="col-span-2 flex flex-col h-150 max-w-[80%] w-full ml-5 p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
-        <div className="border-b pb-4 mb-4">
-          <h1 className="text-xl font-semibold">WellAi Chat</h1>
+      <div className="col-span-2 flex flex-col h-150  w-full md:max-w-[80%] p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
+        <div className="border-b pb-4 mb-4 flex justify-between items-center">
+          <h1 className="text-xl font-semibold">Talk for help</h1>
+
+          
+        <DrawerNonModal/>
+          
+          
         </div>
 
         <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`p-3 rounded-lg max-w-[80%] ${
+              className={`p-3 rounded-lg max-w-fit ${
                 m.role === "user"
                   ? "bg-slate-100 ml-auto border border-slate-200"
                   : "bg-white border border-slate-200 shadow-sm"
