@@ -1,12 +1,11 @@
 import "./globals.css";
 import StoreProvider from "@/state/stateProvider";
-import { Public_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
-import { AppSidebar } from "@/components/ForAllPage/AppSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 export const metadata = {
   title: "Wellness.chat",
@@ -19,14 +18,11 @@ export const metadata = {
   },
 };
 
-const publicSans = Public_Sans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
+const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn("antialiased", publicSans.variable)}>
+    <html lang="en" className={cn("antialiased", "font-sans", inter.variable)}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QQTSCDPZXN"
@@ -44,12 +40,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-amber-50 font-sans text-foreground">
         <StoreProvider>
           <Suspense fallback={null} />
-          <SidebarProvider defaultOpen={false}>
+            <TooltipProvider>
             <div className="fixed inset-y-0 left-0 z-50">
-              <AppSidebar />
             </div>
             {children}
-          </SidebarProvider>
+          </TooltipProvider>
         </StoreProvider>
         <Toaster />
       </body>

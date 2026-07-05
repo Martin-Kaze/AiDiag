@@ -1,119 +1,103 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect } from "react";
 import type { UIMessage } from "ai";
 import { toast } from "sonner";
-import { useSelector } from "react-redux";
-import { RootState } from "@/state/store";
+import { authClient } from "@/lib/auth-client";
 import { DefaultChatTransport } from "ai";
+import { DrawerNonModal } from "./DrawerNonModal";
 
-function renderText(text : any) {
-  const words = text.split(" ");
-  let starts = false;
+function renderText(text: string) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
 
-  return words.map((word : any, i : any) => {
-    if (word.startsWith("**")) {
-      starts = true;
-    }
-
-    const isBold = starts;
-
-    if (word.endsWith("**")) {
-      starts = false;
-    }
-
-    return (
-      <span key={i} className={isBold ? "font-bold" : ""}>
-        {word.replaceAll("**", "")}{" "}
-      </span>
-    );
-  });
+  return parts.map((part, i) =>
+    part.startsWith("**") && part.endsWith("**") ? (
+      <strong key={i} className="font-bold">{part.slice(2, -2)}</strong>
+    ) : (
+      <span key={i}>{part}</span>
+    )
+  );
 }
 
-const initialMessages: UIMessage[] = [
-  {
-    id: "welcome",
-    role: "assistant",
-    parts: [
-      { type: "text", text: "Let me check that." },
-      { type: "text", text: "hehe" },
-      { type: "text", text: "Here is what I found..." },
-    ],
-  },
-];
+
 
 export const DashboardClient = () => {
+
   const [input, setInput] = useState("");
-
-  const quickQuestion = useSelector(
-    (state: RootState) => state.UserInputReducer.QuickQuestion
-  );
-
-  const Youtubers = useSelector(
-    (state: RootState) => state.UserInputReducer.YoutuberList
-  );
-
-  const hasYoutubeContext =
-    Array.isArray(Youtubers) && Youtubers.length > 0;
-
-  const { messages, status, sendMessage, error } = useChat({
-    messages: initialMessages,
-
-    transport: new DefaultChatTransport({
-      api: "/api/chat",
-    }),
-
-    onError: (error: any) => {
-      toast.error(error.message);
-    },
-  });
+  const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
+  const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
-    if (!quickQuestion) return;
-    if (!hasYoutubeContext) return;
+    authClient.getSession().then(({ data }) => {
+      setSession(data);
+      setIsPending(false);
+    });
+  }, []);
+ 
 
-    sendMessage(
-      { text: quickQuestion },
-      {
-        body: {
-          hiddenContext: Youtubers,
-        },
-      }
-    );
-  }, [quickQuestion, hasYoutubeContext, Youtubers, sendMessage]);
+ const { messages, setMessages, status, sendMessage, error } = useChat({
+  messages: [{
+    id: "welcome",
+    role: "assistant",
+    parts: [{ type: "text", text: "Hello!" }],
+  }] as UIMessage[],
+
+  transport: new DefaultChatTransport({
+    api: "/api/chat",
+  }),
+
+  onError: (error: any) => {
+    toast.error(error.message);
+  },
+});
+
+useEffect(() => {
+  if (!isPending && session) {
+    setMessages([{
+      id: "welcome",
+      role: "assistant",
+      parts: [{ type: "text", text: `Hello **${session.user.name}**, how can i help you?` }],
+    }]);
+  }
+}, [isPending, session, setMessages]);
+
 
   const isLoading = status === "submitted" || status === "streaming";
   
-const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+const onSubmit = (e: any) => {
     e.preventDefault();
 
     if (!input.trim()) return;
 
     sendMessage(
       { text: input },
-      {
+       /*{
         body: {
-          hiddenContext: hasYoutubeContext ? Youtubers : null,
-        },
-      }
+      hiddenContext: nothing, can acess it in api /chat const { messages , hiddenContext} = await req.json();
+    },
+    }*/
     );
-
     setInput("");
   };
 
   return (
     <>
-      <div className="col-span-2 flex flex-col h-150 max-w-[80%] w-full ml-5 p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
-        <div className="border-b pb-4 mb-4">
-          <h1 className="text-xl font-semibold">WellAi Chat</h1>
+      <div className="col-span-2 flex flex-col h-150  w-full md:max-w-[80%] p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
+        <div className="border-b pb-4 mb-4 flex justify-between items-center">
+          <h1 className="text-xl font-semibold">Talk for help</h1>
+
+          
+        <DrawerNonModal name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false}/>
+          
+          
         </div>
 
         <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
           {messages.map((m) => (
             <div
               key={m.id}
-              className={`p-3 rounded-lg max-w-[80%] ${
+              className={`p-3 rounded-lg max-w-fit ${
                 m.role === "user"
                   ? "bg-slate-100 ml-auto border border-slate-200"
                   : "bg-white border border-slate-200 shadow-sm"
