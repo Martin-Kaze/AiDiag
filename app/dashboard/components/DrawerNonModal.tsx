@@ -10,17 +10,17 @@ import {
 } from "@/components/ui/drawer"
 import { LoginForm } from "@/app/dashboard/components/login-form"
 
-export function DrawerNonModal() {
+export function DrawerNonModal( props: {name : string ; login : boolean}) {
   return (
     <Drawer modal={false} disablePointerDismissal swipeDirection="right">
-      <DrawerTrigger render={<Button className="ml-0" variant="outline">Login</Button>} />
+      <DrawerTrigger render={<Button className="ml-0" variant="outline">{props.name}</Button>} />
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle className="self-center ">Settings</DrawerTitle>
+          <DrawerTitle className="self-center "></DrawerTitle>
         </DrawerHeader>
         
-          
-          <LoginForm/>
+          { (props.login)?  null : <LoginForm/>}
+         
       
         <DrawerFooter>
           <DrawerClose render={<Button>Close</Button>} />
