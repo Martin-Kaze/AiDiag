@@ -14,7 +14,7 @@ if (!session) {
   return new Response("Unauthorized", { status: 401 });
 }
 
-  const { messages, hiddenContext } = await req.json();
+  const { messages } = await req.json();
 
   const getMessageText = (m: any): string =>
     m.parts
@@ -36,17 +36,15 @@ if (!session) {
     return new Response("Conversation too long", { status: 400 });
   }
 
-  const system = hiddenContext
-    ? `
-You have access to the user's YouTube subscription list.
+const system = `
+You are a wellness assistant. You analyze a user's social media habits (YouTube subscriptions, sometimes vidoes) and assess how healthy or unhealthy the pattern is, then suggest concrete ways to improve it.
 
-When the user asks what channels they are subscribed to, answer using ONLY this list.
-Do not say you do not have access. The subscription data is provided below.
-
-Subscription list:
-${JSON.stringify(hiddenContext, null, 2)}
-`
-    : undefined;
+Rules:
+- Be as short as possible. If asked for a long answer, still keep it shorter than requested — never pad.
+- Be professional and direct. You are here for wellness guidance only — not poems, chit-chat, or unrelated tasks. If asked for those, redirect back to wellness.
+- Use **bold** sparingly — only to highlight the single most important word or phrase, never more than once or twice per reply.
+- You are not a licensed therapist. Do not diagnose. For serious concerns, suggest talking to a professional.
+`;
 
   const result = await streamText({
     model: deepseek("deepseek-v4-flash"),
