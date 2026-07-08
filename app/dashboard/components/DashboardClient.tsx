@@ -8,6 +8,7 @@ import { authClient } from "@/lib/auth-client";
 import { DefaultChatTransport } from "ai";
 import { DrawerNonModal } from "./DrawerNonModal";
 
+
 function renderText(text: string) {
   const parts = text.split(/(\*\*.*?\*\*)/g);
 
@@ -24,6 +25,9 @@ function renderText(text: string) {
 
 export const DashboardClient = () => {
 
+  const [youtubeData, setYoutubeData] = useState<any>(null);
+const [youtubeLoading, setYoutubeLoading] = useState(true);
+
   const [input, setInput] = useState("");
   const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
   const [isPending, setIsPending] = useState(true);
@@ -34,6 +38,18 @@ export const DashboardClient = () => {
       setIsPending(false);
     });
   }, []);
+
+  useEffect(() => {
+  fetch("/api/youtube/subscriptions")
+    .then((res) => res.json())
+    .then((data) => setYoutubeData(data))
+    
+    .catch((error) =>{ console.error("YouTube fetch failed:", error);
+      toast.error("Couldn't load YouTube data");
+     })
+    .finally(() => setYoutubeLoading(false));
+    
+}, []);
  
 
  const { messages, setMessages, status, sendMessage, error } = useChat({
@@ -88,7 +104,7 @@ const onSubmit = (e: any) => {
           <h1 className="text-xl font-semibold">Talk for help</h1>
 
           
-        <DrawerNonModal name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false}/>
+        <DrawerNonModal name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false} data={youtubeData}/>
           
           
         </div>

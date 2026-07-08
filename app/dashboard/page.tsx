@@ -2,6 +2,7 @@ import { Menu } from "@/components/ForAllPage/Menu";
 import { DashboardClient } from "./components/DashboardClient";
 export default async function Page() {
   
+  
   return (
     <div className="flex flex-col min-h-screen w-full">
 
