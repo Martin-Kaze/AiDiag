@@ -52,8 +52,7 @@ export function DrawerNonModal(props: { name: string; login: boolean; data: Subs
         <DrawerHeader>
           <DrawerTitle className="self-center "> {(props.login) ? "Welcome" : null}  </DrawerTitle>
         </DrawerHeader>
-        
-        <div className="flex flex-row flex-wrap items-center gap-6 md:gap-12 self-center m-5">
+        {(props.login) ?  <div className="flex flex-row flex-wrap items-center gap-6 md:gap-12 self-center m-5">
           <a> Sublist:</a>
           <AvatarGroup>
 
@@ -85,7 +84,8 @@ export function DrawerNonModal(props: { name: string; login: boolean; data: Subs
               ? <AvatarGroupCount> props.data.total - 3 </AvatarGroupCount>
               : null}
           </AvatarGroup>
-        </div>
+        </div>: <LoginForm/> }
+       
 
 
 
