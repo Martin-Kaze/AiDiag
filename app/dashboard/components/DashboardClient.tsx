@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { DefaultChatTransport } from "ai";
 import { DrawerNonModal } from "./DrawerNonModal";
+import { Simplify_Channel } from "@/lib/simplify-channels";
 
 
 function renderText(text: string) {
@@ -83,7 +84,7 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
     addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,
-      output: { success: true, subscriptions: youtubeData },
+      output: { success: true, subscriptions: Simplify_Channel(youtubeData) },
     });
   }
 },
