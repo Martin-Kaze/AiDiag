@@ -10,7 +10,7 @@
   "dependencies": {
     "@ai-sdk/deepseek": "^2.0.35",
     "@ai-sdk/google": "^3.0.80",
-    "@ai-sdk/react": "^3.0.193",
+    "@ai-sdk/react": "^4.0.19",
     "@base-ui/react": "^1.6.0",
     "@better-auth/core": "^1.6.23",
     "@better-auth/mongo-adapter": "^1.6.12",
@@ -26,7 +26,7 @@
     "@stripe/stripe-js": "^9.3.1",
     "@tailwindcss/cli": "^4.2.2",
     "@tanstack/react-table": "^8.21.3",
-    "ai": "^6.0.191",
+    "ai": "^7.0.18",
     "better-auth": "^1.6.23",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
