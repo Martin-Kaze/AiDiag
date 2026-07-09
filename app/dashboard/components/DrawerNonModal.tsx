@@ -44,7 +44,7 @@ interface SubscriberData {
 }
 
 export function DrawerNonModal(props: { name: string; login: boolean; data: SubscriberData }) {
-  console.log(props.data)
+ 
   return (
     <Drawer modal={false} disablePointerDismissal swipeDirection="right">
       <DrawerTrigger render={<Button className="ml-0" variant="outline">{props.name}</Button>} />
