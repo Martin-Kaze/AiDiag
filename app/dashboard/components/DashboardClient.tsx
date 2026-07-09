@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { lastAssistantMessageIsCompleteWithToolCalls, type UIMessage } from 'ai';
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
@@ -29,6 +29,10 @@ export const DashboardClient = () => {
   const [youtubeData, setYoutubeData] = useState<any>(null);
 const [youtubeLoading, setYoutubeLoading] = useState(true);
 
+const simplifiedYoutube = useMemo(() => {
+    return youtubeData ? Simplify_Channel(youtubeData) : null;
+}, [youtubeData]);
+
   const [input, setInput] = useState("");
   const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
   const [isPending, setIsPending] = useState(true);
@@ -48,7 +52,7 @@ const [youtubeLoading, setYoutubeLoading] = useState(true);
     .catch((error) =>{ console.error("YouTube fetch failed:", error);
       toast.error("Couldn't load YouTube data");
      })
-    .finally(() =>{ setYoutubeLoading(false) ; console.log(youtubeData)});
+    .finally(() =>{ setYoutubeLoading(false) ;  });
     
 }, []);
  
@@ -84,7 +88,7 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
     addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,
-      output: { success: true, subscriptions: Simplify_Channel(youtubeData) },
+      output: { success: true, subscriptions: simplifiedYoutube },
     });
   }
 },
