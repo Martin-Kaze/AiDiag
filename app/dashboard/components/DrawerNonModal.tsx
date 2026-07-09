@@ -60,7 +60,7 @@ export function DrawerNonModal(props: { name: string; login: boolean; data: Subs
               <AvatarImage
                 src={props.data?.subscriptions[0]?.snippet?.thumbnails?.default?.url}
                 alt="@shadcn"
-                className="grayscale"
+                
               />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
@@ -68,7 +68,7 @@ export function DrawerNonModal(props: { name: string; login: boolean; data: Subs
               <AvatarImage
                 src={props.data?.subscriptions[1]?.snippet?.thumbnails?.default?.url}
                 alt="@shadcn"
-                className="grayscale"
+                
               />
               <AvatarFallback>{props.data?.subscriptions[1]?.snippet?.title || "NaN"}</AvatarFallback>
             </Avatar>
@@ -76,12 +76,12 @@ export function DrawerNonModal(props: { name: string; login: boolean; data: Subs
               <AvatarImage
                 src={props.data?.subscriptions[2]?.snippet?.thumbnails?.default?.url}
                 alt="@shadcn"
-                className="grayscale"
+             
               />
               <AvatarFallback>{props.data?.subscriptions[2]?.snippet?.title || "NaN"}</AvatarFallback>
             </Avatar>
             {typeof props.data?.total === 'number' && props.data.total > 3
-              ? <AvatarGroupCount> props.data.total - 3 </AvatarGroupCount>
+              ? <AvatarGroupCount> +{props.data.total - 3} </AvatarGroupCount>
               : null}
           </AvatarGroup>
         </div>: <LoginForm/> }
