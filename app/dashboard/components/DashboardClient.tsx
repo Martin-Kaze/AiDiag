@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useState, useEffect } from "react";
-import type { UIMessage } from "ai";
+import { lastAssistantMessageIsCompleteWithToolCalls, type UIMessage } from 'ai';
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { DefaultChatTransport } from "ai";
@@ -47,12 +47,11 @@ const [youtubeLoading, setYoutubeLoading] = useState(true);
     .catch((error) =>{ console.error("YouTube fetch failed:", error);
       toast.error("Couldn't load YouTube data");
      })
-    .finally(() => setYoutubeLoading(false));
+    .finally(() =>{ setYoutubeLoading(false) ; console.log(youtubeData)});
     
 }, []);
  
-
- const { messages, setMessages, status, sendMessage, error } = useChat({
+const { messages, setMessages, status, sendMessage, error, addToolOutput } = useChat({
   messages: [{
     id: "welcome",
     role: "assistant",
@@ -66,7 +65,33 @@ const [youtubeLoading, setYoutubeLoading] = useState(true);
   onError: (error: any) => {
     toast.error(error.message);
   },
+
+  async onToolCall({ toolCall }) {
+  if (toolCall.dynamic) return;
+
+  if (toolCall.toolName === 'getSubList') {
+    if (youtubeLoading) {
+      // don't execute the real logic — but still must resolve the tool call
+      addToolOutput({
+        toolCallId: toolCall.toolCallId,
+        tool: toolCall.toolName,
+        output: { success: false, error: 'Subscriptions are still loading.' },
+      });
+      return;
+    }
+
+    addToolOutput({
+      toolCallId: toolCall.toolCallId,
+      tool: toolCall.toolName,
+      output: { success: true, subscriptions: youtubeData },
+    });
+  }
+},
+
+  sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
 });
+
+
 
 useEffect(() => {
   if (!isPending && session) {

@@ -1,8 +1,8 @@
 import { deepseek } from "@ai-sdk/deepseek";
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages , tool} from "ai";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-
+import z from "zod";
 
 export async function POST(req: Request) {
   
@@ -50,6 +50,13 @@ Rules:
     model: deepseek("deepseek-v4-flash"),
     system,
     messages: await convertToModelMessages(messages),
+    tools : {
+      getSubList : tool({
+        description: "Getting users subscription list",
+        inputSchema: z.object({}),
+      }),
+    },
+   
 
     onFinish: (event) => {
       console.log("--- Token Usage ---");
