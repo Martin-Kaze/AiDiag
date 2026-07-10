@@ -1,12 +1,14 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useEffect } from "react";
-import type { UIMessage } from "ai";
+import { useState, useEffect, useMemo } from "react";
+import { lastAssistantMessageIsCompleteWithToolCalls, type UIMessage } from 'ai';
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { DefaultChatTransport } from "ai";
 import { DrawerNonModal } from "./DrawerNonModal";
+import { Simplify_Channel } from "@/lib/simplify-channels";
+
 
 function renderText(text: string) {
   const parts = text.split(/(\*\*.*?\*\*)/g);
@@ -24,6 +26,13 @@ function renderText(text: string) {
 
 export const DashboardClient = () => {
 
+  const [youtubeData, setYoutubeData] = useState<any>(null);
+const [youtubeLoading, setYoutubeLoading] = useState(true);
+
+const simplifiedYoutube = useMemo(() => {
+    return youtubeData ? Simplify_Channel(youtubeData) : null;
+}, [youtubeData]);
+
   const [input, setInput] = useState("");
   const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
   const [isPending, setIsPending] = useState(true);
@@ -34,9 +43,20 @@ export const DashboardClient = () => {
       setIsPending(false);
     });
   }, []);
- 
 
- const { messages, setMessages, status, sendMessage, error } = useChat({
+  useEffect(() => {
+  fetch("/api/youtube/subscriptions")
+    .then((res) => res.json())
+    .then((data) => setYoutubeData(data))
+    
+    .catch((error) =>{ console.error("YouTube fetch failed:", error);
+      toast.error("Couldn't load YouTube data");
+     })
+    .finally(() =>{ setYoutubeLoading(false) ;  });
+    
+}, []);
+ 
+const { messages, setMessages, status, sendMessage, error, addToolOutput } = useChat({
   messages: [{
     id: "welcome",
     role: "assistant",
@@ -50,7 +70,33 @@ export const DashboardClient = () => {
   onError: (error: any) => {
     toast.error(error.message);
   },
+
+  async onToolCall({ toolCall }) {
+  if (toolCall.dynamic) return;
+
+  if (toolCall.toolName === 'getSubList') {
+    if (youtubeLoading) {
+      // don't execute the real logic — but still must resolve the tool call
+      addToolOutput({
+        toolCallId: toolCall.toolCallId,
+        tool: toolCall.toolName,
+        output: { success: false, error: 'Subscriptions are still loading.' },
+      });
+      return;
+    }
+
+    addToolOutput({
+      toolCallId: toolCall.toolCallId,
+      tool: toolCall.toolName,
+      output: { success: true, subscriptions: simplifiedYoutube },
+    });
+  }
+},
+
+  sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
 });
+
+
 
 useEffect(() => {
   if (!isPending && session) {
@@ -88,7 +134,7 @@ const onSubmit = (e: any) => {
           <h1 className="text-xl font-semibold">Talk for help</h1>
 
           
-        <DrawerNonModal name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false}/>
+        <DrawerNonModal name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false} data={youtubeData}/>
           
           
         </div>

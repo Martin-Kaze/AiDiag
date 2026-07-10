@@ -1,8 +1,8 @@
 import { deepseek } from "@ai-sdk/deepseek";
-import { streamText, convertToModelMessages } from "ai";
+import { streamText, convertToModelMessages , tool} from "ai";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-
+import z from "zod";
 
 export async function POST(req: Request) {
   
@@ -44,12 +44,20 @@ Rules:
 - Be professional and direct. You are here for wellness guidance only — not poems, chit-chat, or unrelated tasks. If asked for those, redirect back to wellness.
 - Use **bold** sparingly — only to highlight the single most important word or phrase, never more than once or twice per reply.
 - You are not a licensed therapist. Do not diagnose. For serious concerns, suggest talking to a professional.
+- Dont use unnecessary formatting, no random characters, emojis, be as clean as possible.
 `;
 
   const result = await streamText({
     model: deepseek("deepseek-v4-flash"),
     system,
     messages: await convertToModelMessages(messages),
+    tools : {
+      getSubList : tool({
+        description: "Getting users subscription list",
+        inputSchema: z.object({}),
+      }),
+    },
+   
 
     onFinish: (event) => {
       console.log("--- Token Usage ---");
