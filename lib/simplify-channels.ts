@@ -31,11 +31,21 @@ interface SubscriberData {
   total: string;
 }
 
-export  function Simplify_Channel(data: SubscriberData) {
+export function Simplify_Channel(data: SubscriberData) {
+
+
+    if (!data.subscriptions) {
+
+        return {
+            total: data.total,
+            subscriptions: [],
+        };
+    }
+
     return {
         total: data.total,
         subscriptions: data.subscriptions.map(({ snippet }) => [
-            snippet.channelId,
+            snippet.resourceId.channelId,
             snippet.title,
             snippet.description,
         ]),
