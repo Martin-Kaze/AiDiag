@@ -2,13 +2,15 @@
 
 import { useChat } from "@ai-sdk/react";
 import { useState, useEffect, useMemo } from "react";
-import { lastAssistantMessageIsCompleteWithToolCalls, type UIMessage } from 'ai';
+import { lastAssistantMessageIsCompleteWithToolCalls, type UIMessage, type UIDataTypes} from 'ai';
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import { DefaultChatTransport } from "ai";
 import { DrawerNonModal } from "./DrawerNonModal";
 import { Simplify_Channel } from "@/lib/simplify-channels";
+import {  type ChatUITools } from '@/lib/chat-tools';
 
+type ChatMessage = UIMessage<unknown, UIDataTypes, ChatUITools>;
 
 function renderText(text: string) {
   const parts = text.split(/(\*\*.*?\*\*)/g);
@@ -28,14 +30,18 @@ export const DashboardClient = () => {
 
   const [youtubeData, setYoutubeData] = useState<any>(null);
 const [youtubeLoading, setYoutubeLoading] = useState(true);
+const [videoData, setVideoData] = useState<any>(null);
+
+const [input, setInput] = useState("");
+  const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
+  const [isPending, setIsPending] = useState(true);
 
 const simplifiedYoutube = useMemo(() => {
     return youtubeData ? Simplify_Channel(youtubeData) : null;
 }, [youtubeData]);
 
-  const [input, setInput] = useState("");
-  const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
-  const [isPending, setIsPending] = useState(true);
+ console.log(simplifiedYoutube);
+  
 
   useEffect(() => {
     authClient.getSession().then(({ data }) => {
@@ -45,23 +51,25 @@ const simplifiedYoutube = useMemo(() => {
   }, []);
 
   useEffect(() => {
+    if(!session){
+      return
+    }
   fetch("/api/youtube/subscriptions")
     .then((res) => res.json())
     .then((data) => setYoutubeData(data))
-    
     .catch((error) =>{ console.error("YouTube fetch failed:", error);
       toast.error("Couldn't load YouTube data");
      })
     .finally(() =>{ setYoutubeLoading(false) ;  });
     
-}, []);
+}, [session]);
  
-const { messages, setMessages, status, sendMessage, error, addToolOutput } = useChat({
+const { messages, setMessages, status, sendMessage, error, addToolOutput } = useChat<ChatMessage>({
   messages: [{
     id: "welcome",
     role: "assistant",
     parts: [{ type: "text", text: "Hello!" }],
-  }] as UIMessage[],
+  }] as ChatMessage[],
 
   transport: new DefaultChatTransport({
     api: "/api/chat",
@@ -76,7 +84,6 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
 
   if (toolCall.toolName === 'getSubList') {
     if (youtubeLoading) {
-      // don't execute the real logic — but still must resolve the tool call
       addToolOutput({
         toolCallId: toolCall.toolCallId,
         tool: toolCall.toolName,
@@ -85,12 +92,38 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
       return;
     }
 
+   
     addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,
-      output: { success: true, subscriptions: simplifiedYoutube },
+      output: { success: true, subscriptions: simplifiedYoutube  },
     });
   }
+   if (toolCall.toolName === 'getVideos') {
+  const { channelId } = toolCall.input;
+
+  try {
+    const res = await fetch(`/api/youtube/videos/${channelId}`);
+    const data = await res.json();
+
+    setVideoData(data); // fine to keep, for UI rendering elsewhere
+
+    addToolOutput({
+      toolCallId: toolCall.toolCallId,
+      tool: toolCall.toolName,
+      output: { success: true, videolist: data }, // use `data` directly, not state
+    });
+  } catch (error) {
+    console.error("YouTube fetch failed:", error);
+    toast.error("Couldn't load Video data");
+
+    addToolOutput({
+      toolCallId: toolCall.toolCallId,
+      tool: toolCall.toolName,
+      output: { success: false, error: "Failed to fetch video data" },
+    });
+  }
+}
 },
 
   sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,

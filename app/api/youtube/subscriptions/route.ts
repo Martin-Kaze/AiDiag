@@ -25,7 +25,6 @@ export async function GET() {
             headers: { Authorization: `Bearer ${accessToken}` },
         });
 
-        console.log("YouTube API status:", res.status);
         
         if (!res.ok) {
             const errBody = await res.text();

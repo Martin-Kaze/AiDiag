@@ -1,18 +1,18 @@
 import { deepseek } from "@ai-sdk/deepseek";
-import { streamText, convertToModelMessages , tool} from "ai";
+import { streamText, convertToModelMessages, tool, toUIMessageStream, createUIMessageStreamResponse } from "ai";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import z from "zod";
+import { chatTools } from "@/lib/chat-tools";
 
 export async function POST(req: Request) {
-  
-  const session = await auth.api.getSession({
-  headers: await headers(),
-});
 
-if (!session) {
-  return new Response("Unauthorized", { status: 401 });
-}
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    return new Response("Unauthorized", { status: 401 });
+  }
 
   const { messages } = await req.json();
 
@@ -36,7 +36,7 @@ if (!session) {
     return new Response("Conversation too long", { status: 400 });
   }
 
-const system = `
+  const system = `
 You are a wellness assistant. You analyze a user's social media habits (YouTube subscriptions, sometimes vidoes) and assess how healthy or unhealthy the pattern is, then suggest concrete ways to improve it.
 
 Rules:
@@ -51,13 +51,8 @@ Rules:
     model: deepseek("deepseek-v4-flash"),
     system,
     messages: await convertToModelMessages(messages),
-    tools : {
-      getSubList : tool({
-        description: "Getting users subscription list",
-        inputSchema: z.object({}),
-      }),
-    },
-   
+    tools: chatTools,
+
 
     onFinish: (event) => {
       console.log("--- Token Usage ---");
@@ -68,5 +63,7 @@ Rules:
     },
   });
 
-  return result.toUIMessageStreamResponse();
+  return createUIMessageStreamResponse({
+    stream: toUIMessageStream({ stream: result.stream }),
+  });
 }
