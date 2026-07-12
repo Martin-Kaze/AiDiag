@@ -3,9 +3,9 @@
 import { Menubar, MenubarMenu } from "@/components/ui/menubar"
 import Link from "next/link"
 
-export function Menu( props : { nosidebar? : boolean} ) {
+export function Menu(  ) {
   return (
-    <Menubar className="relative p-2 py-5 bg-background w-full rounded-none border-b">
+    <Menubar className="relative p-2 py-7 bg-white w-full rounded-none border-b shadow-sma">
       <MenubarMenu>
 
       </MenubarMenu>
