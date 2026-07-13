@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { BadgeCheckIcon, ChevronRightIcon , Landmark, ScanHeart} from "lucide-react"
+
 
 import {
   Accordion,
@@ -6,6 +8,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item"
+
 
 import { Marker, MarkerContent } from "@/components/ui/marker"
 
@@ -31,7 +43,7 @@ interface HeroProps {
 
 export default function Hero({
   subheadingItalic = "Understand how your",
-  subheadingBold = "YouTube habits shape your wellbeing",
+  subheadingBold = "YouTube habits shape your wellbeing.",
   description = " ",
   buttons = {
     primary: { text: "Get Started", url: "/dashboard" },
@@ -49,7 +61,38 @@ export default function Hero({
         <span className=" font-semibold">{subheadingBold}</span>
       </p>
 
-      <Image src={img} alt="none" className="size-100" />
+<div className="flex mt-5">
+
+  <div className="flex flex-1 shrink w-full max-w-md flex-col gap-6 justify-center ">
+     
+      <Item variant="outline" className="shadow" size="sm" render={<a href="/dashboard?button=channel"><ItemMedia>
+          <BadgeCheckIcon className="size-5 text-blue-400" />
+        </ItemMedia><ItemContent>
+          <ItemTitle className="text-black">Analyse Youtube Channels.</ItemTitle>
+        </ItemContent><ItemActions>
+          <ChevronRightIcon className="size-4 " />
+        </ItemActions></a>} />
+         <Item variant="outline" className="shadow" size="sm" render={<a href="/dashboard?button=politics"><ItemMedia>
+          <Landmark className="size-5 text-purple-400" />
+        </ItemMedia><ItemContent>
+          <ItemTitle className="text-black">Learn Channels political stance.</ItemTitle>
+        </ItemContent><ItemActions>
+          <ChevronRightIcon className="size-4 " />
+        </ItemActions></a>} />
+        <Item variant="outline" className="shadow" size="sm" render={<a href="/dashboard?button=score"><ItemMedia>
+          <ScanHeart className="size-5 text-green-400" />
+        </ItemMedia><ItemContent>
+          <ItemTitle className="text-black">Get AI made Wellness Score.</ItemTitle>
+        </ItemContent><ItemActions>
+          <ChevronRightIcon className="size-4 " />
+        </ItemActions></a>} />
+    </div>
+<div className="hidden md:block">
+<Image src={img} alt="none" className="size-100" />
+</div>
+
+</div>
+      
 
       <div className="mt-8 flex flex-col sm:flex-row gap-3 ">
         <Button size="lg" className="hover:animate-pulse">
@@ -66,7 +109,7 @@ export default function Hero({
   </MarkerContent>
 </Marker>
 
-      <Accordion defaultValue={["info"]} className="max-w-lg bg-white ">
+      <Accordion defaultValue={["info"]} className=" bg-white ">
         <AccordionItem value="info">
           <AccordionTrigger>What does Wellness.chat do?</AccordionTrigger>
           <AccordionContent> Wellness.chat securely connects to your YouTube account (read-only) and uses AI to analyse your channel subscriptions. It provides personalised insights into how the content you follow may influence your wellbeing, mental health, and daily habits. </AccordionContent>
