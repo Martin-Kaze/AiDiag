@@ -1,6 +1,6 @@
 import "./globals.css";
 import StoreProvider from "@/state/stateProvider";
-import { Inter } from "next/font/google";
+import { Inter, Quicksand } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 import { Toaster } from "@/components/ui/sonner";
@@ -18,11 +18,19 @@ export const metadata = {
   },
 };
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+export const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-sans'
+});
+
+export const quicksand = Quicksand({
+  subsets: ["latin"],
+  variable: "--font-quicksand",
+});
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn("antialiased", "font-sans", inter.variable)}>
+    <html lang="en" className={cn("antialiased", "font-sans", inter.variable, quicksand.variable)}>
       <head>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-QQTSCDPZXN"
@@ -37,10 +45,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-amber-50 font-sans text-foreground">
+      <body className="min-h-screen bg-stone-50 font-sans text-foreground">
         <StoreProvider>
           <Suspense fallback={null} />
-            <TooltipProvider>
+          <TooltipProvider>
             <div className="fixed inset-y-0 left-0 z-50">
             </div>
             {children}
