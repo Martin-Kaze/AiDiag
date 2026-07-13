@@ -147,15 +147,19 @@ useEffect(() => {
 const onSubmit = (e: any) => {
     e.preventDefault();
 
+    const criteria = localStorage.getItem('criteria');
+    const goals = localStorage.getItem('goals');
+    
+    const message = `users wellness goals: ${goals} and criteria for channels : ${criteria}`
     if (!input.trim()) return;
 
     sendMessage(
       { text: input },
-       /*{
+       {
         body: {
-      hiddenContext: nothing, can acess it in api /chat const { messages , hiddenContext} = await req.json();
+      hiddenContext: message,
     },
-    }*/
+    }
     );
     setInput("");
   };
