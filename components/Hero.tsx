@@ -53,13 +53,23 @@ export default function Hero({
   return (
     <section className="flex flex-col items-center text-center px-4 py-10 max-w-3xl mx-auto ">
 
-
-      <p className="text-3xl font-quicksand font-semibold text-black ">
+<div className="hidden md:block">
+ <p className="text-4xl font-quicksand font-semibold text-black ">
         <span className="font-quicksand font-bold">
           {subheadingItalic} <br></br>
-        </span>{" "}
+        </span>
         <span className=" font-semibold">{subheadingBold}</span>
       </p>
+</div>
+
+  <div className="block md:hidden">
+ <p className="text-4xl font-quicksand font-semibold text-black ">
+        <span className="font-quicksand font-bold">
+          AI Powered Social Media Wellness Analyser <br></br>
+        </span>
+        
+      </p>
+</div>   
 
 <div className="flex mt-5">
 
