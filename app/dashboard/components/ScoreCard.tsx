@@ -3,10 +3,10 @@
 import { TrendingUp } from "lucide-react"
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
 import { useEffect, useState } from "react"
-import {  useSelector , useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { type RootState, AppDispatch } from "@/state/store"
 import { setChartReload } from "@/state/slices/UserInputSlice"
-
+import { authClient } from "@/lib/auth-client"
 import {
     Card,
     CardContent,
@@ -27,6 +27,9 @@ import {
 
 
 export function ScoreCard(props: { className: string }) {
+
+    
+
     const chartConfig = {
         average: {
             label: "Average",
@@ -54,12 +57,22 @@ export function ScoreCard(props: { className: string }) {
     }[];
 
     const [chartData, setChartData] = useState<ChartData>([]);
+     const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
+     const [isPending, setIsPending] = useState(true);
 
-    const dispatch = useDispatch<AppDispatch>();
-   const reload = useSelector( (data : RootState) => data.UserInputReducer.chartReload)
+    const reload = useSelector((data: RootState) => data.UserInputReducer.chartReload);
+
+       useEffect(() => {
+        authClient.getSession().then(({ data }) => {
+          setSession(data);
+          setIsPending(false);
+        });
+      }, []);
 
     useEffect(() => {
-        const data = localStorage.getItem("chart");
+        if(!session)
+            return
+        const data = localStorage.getItem(`${session?.user.id}`);
 
         if (data) {
             const obj = JSON.parse(data) as ChartData;
@@ -67,9 +80,9 @@ export function ScoreCard(props: { className: string }) {
         } else {
             setChartData(defaultChartData);
         }
-    }, [reload]);
+    }, [reload, session]);
 
-
+ 
 
 
     return (

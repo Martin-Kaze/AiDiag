@@ -135,7 +135,7 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
   }
   if (toolCall.toolName === "provideScore") {
   const { chartData } = toolCall.input;
-  localStorage.setItem( 'chart', JSON.stringify(chartData));
+    localStorage.setItem( `${session?.user.id}`, JSON.stringify(chartData));
   dispatch(setChartReload());
   addToolOutput({
       toolCallId: toolCall.toolCallId,
@@ -168,7 +168,7 @@ const onSubmit = (e: any) => {
 
     const criteria = localStorage.getItem('criteria');
     const goals = localStorage.getItem('goals');
-    const chart = localStorage.getItem('chart');
+    const chart = localStorage.getItem(`${session?.user.id}`);
     
     const message = `users wellness goals: ${goals} and criteria for channels : ${criteria}, and they default chart score ${chart}: `
     if (!input.trim()) return;
