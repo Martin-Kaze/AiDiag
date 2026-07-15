@@ -10,6 +10,10 @@ import { DrawerNonModal } from "./DrawerNonModal";
 import { Simplify_Channel } from "@/lib/simplify-channels";
 import {  type ChatUITools } from '@/lib/chat-tools';
 import { cn } from "@/lib/utils";
+import { useDispatch } from "react-redux";
+import { type AppDispatch } from "@/state/store";
+import { setChartReload } from "@/state/slices/UserInputSlice";
+
 
 
 type ChatMessage = UIMessage<unknown, UIDataTypes, ChatUITools>;
@@ -33,6 +37,9 @@ export const DashboardClient = ( props : { className? : string}) => {
   const [youtubeData, setYoutubeData] = useState<any>(null);
 const [youtubeLoading, setYoutubeLoading] = useState(true);
 const [videoData, setVideoData] = useState<any>(null);
+
+const dispatch = useDispatch<AppDispatch>();
+
 
 const [input, setInput] = useState("");
   const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
@@ -108,12 +115,12 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
     const res = await fetch(`/api/youtube/videos/${channelId}`);
     const data = await res.json();
 
-    setVideoData(data); // fine to keep, for UI rendering elsewhere
+    setVideoData(data);
 
     addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,
-      output: { success: true, videolist: data }, // use `data` directly, not state
+      output: { success: true, videolist: data }, 
     });
   } catch (error) {
     console.error("YouTube fetch failed:", error);
@@ -129,6 +136,7 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
   if (toolCall.toolName === "provideScore") {
   const { chartData } = toolCall.input;
   localStorage.setItem( 'chart', JSON.stringify(chartData));
+  dispatch(setChartReload());
   addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,

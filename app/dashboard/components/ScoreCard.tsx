@@ -3,6 +3,9 @@
 import { TrendingUp } from "lucide-react"
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
 import { useEffect, useState } from "react"
+import {  useSelector , useDispatch } from "react-redux"
+import { type RootState, AppDispatch } from "@/state/store"
+import { setChartReload } from "@/state/slices/UserInputSlice"
 
 import {
     Card,
@@ -18,6 +21,7 @@ import {
     ChartTooltipContent,
     type ChartConfig,
 } from "@/components/ui/chart"
+
 
 
 
@@ -51,6 +55,9 @@ export function ScoreCard(props: { className: string }) {
 
     const [chartData, setChartData] = useState<ChartData>([]);
 
+    const dispatch = useDispatch<AppDispatch>();
+   const reload = useSelector( (data : RootState) => data.UserInputReducer.chartReload)
+
     useEffect(() => {
         const data = localStorage.getItem("chart");
 
@@ -60,7 +67,7 @@ export function ScoreCard(props: { className: string }) {
         } else {
             setChartData(defaultChartData);
         }
-    }, []);
+    }, [reload]);
 
 
 
