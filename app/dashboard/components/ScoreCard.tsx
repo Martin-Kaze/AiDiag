@@ -83,14 +83,14 @@ export function ScoreCard(props: { className: string }) {
     }, [reload, session]);
 
  
-
+const date = new Date();
 
     return (
         <Card className={props.className}>
             <CardHeader className="items-center pb-4">
-                <CardTitle>Radar Chart - Lines Only</CardTitle>
-                <CardDescription>
-                    Showing total visitors for the last 6 months
+                <CardTitle className="text-blue-400 ">AI Powered Wellness Chart</CardTitle>
+                <CardDescription className="text-neutral-400">
+                    Score based on Channels
                 </CardDescription>
             </CardHeader>
             <CardContent className="pb-0">
@@ -124,10 +124,10 @@ export function ScoreCard(props: { className: string }) {
             </CardContent>
             <CardFooter className="flex-col gap-2 text-sm">
                 <div className="flex items-center gap-2 leading-none font-medium">
-                    Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+                    Data is not accurate, and can change.
                 </div>
                 <div className="flex items-center gap-2 leading-none text-muted-foreground">
-                    January - June 2024
+                    {isPending ?  "Loading data....": date.getFullYear() }
                 </div>
             </CardFooter>
         </Card>
