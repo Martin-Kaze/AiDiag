@@ -13,6 +13,25 @@ export const chatTools = {
       channelId: z.string().describe('The YouTube channel ID'),
     }),
   }),
+  provideScore: tool({
+  description: "Provide the user's wellness score based on their YouTube subscriptions and content. for each month cateogry",
+  inputSchema: z.object({
+    chartData: z.array(
+      z.object({
+        month: z.enum([
+          "Health",
+          "Chill",
+          "Bait",
+          "Learn",
+          "Fun",
+          "Feud",
+        ]),
+        average: z.number().min(0).max(100),
+        yours: z.number().min(0).max(100),
+      })
+    ),
+  }),
+}),
 } satisfies ToolSet;
 
 export type ChatUITools = InferUITools<typeof chatTools>;

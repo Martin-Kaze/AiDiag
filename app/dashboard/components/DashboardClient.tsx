@@ -9,6 +9,12 @@ import { DefaultChatTransport } from "ai";
 import { DrawerNonModal } from "./DrawerNonModal";
 import { Simplify_Channel } from "@/lib/simplify-channels";
 import {  type ChatUITools } from '@/lib/chat-tools';
+import { cn } from "@/lib/utils";
+import { useDispatch } from "react-redux";
+import { type AppDispatch } from "@/state/store";
+import { setChartReload } from "@/state/slices/UserInputSlice";
+
+
 
 type ChatMessage = UIMessage<unknown, UIDataTypes, ChatUITools>;
 
@@ -26,11 +32,14 @@ function renderText(text: string) {
 
 
 
-export const DashboardClient = () => {
+export const DashboardClient = ( props : { className? : string}) => {
 
   const [youtubeData, setYoutubeData] = useState<any>(null);
 const [youtubeLoading, setYoutubeLoading] = useState(true);
 const [videoData, setVideoData] = useState<any>(null);
+
+const dispatch = useDispatch<AppDispatch>();
+
 
 const [input, setInput] = useState("");
   const [session, setSession] = useState<typeof authClient.$Infer.Session | null>(null);
@@ -92,13 +101,13 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
       return;
     }
 
-   
     addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,
       output: { success: true, subscriptions: simplifiedYoutube  },
     });
   }
+
    if (toolCall.toolName === 'getVideos') {
   const { channelId } = toolCall.input;
 
@@ -106,12 +115,12 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
     const res = await fetch(`/api/youtube/videos/${channelId}`);
     const data = await res.json();
 
-    setVideoData(data); // fine to keep, for UI rendering elsewhere
+    setVideoData(data);
 
     addToolOutput({
       toolCallId: toolCall.toolCallId,
       tool: toolCall.toolName,
-      output: { success: true, videolist: data }, // use `data` directly, not state
+      output: { success: true, videolist: data }, 
     });
   } catch (error) {
     console.error("YouTube fetch failed:", error);
@@ -123,7 +132,17 @@ const { messages, setMessages, status, sendMessage, error, addToolOutput } = use
       output: { success: false, error: "Failed to fetch video data" },
     });
   }
-}
+  }
+  if (toolCall.toolName === "provideScore") {
+  const { chartData } = toolCall.input;
+    localStorage.setItem( `${session?.user.id}`, JSON.stringify(chartData));
+  dispatch(setChartReload());
+  addToolOutput({
+      toolCallId: toolCall.toolCallId,
+      tool: toolCall.toolName,
+      output: { success: true},
+    });
+  }
 },
 
   sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithToolCalls,
@@ -149,8 +168,9 @@ const onSubmit = (e: any) => {
 
     const criteria = localStorage.getItem('criteria');
     const goals = localStorage.getItem('goals');
+    const chart = localStorage.getItem(`${session?.user.id}`);
     
-    const message = `users wellness goals: ${goals} and criteria for channels : ${criteria}`
+    const message = `users wellness goals: ${goals} and criteria for channels : ${criteria}, and they default chart score ${chart}: `
     if (!input.trim()) return;
 
     sendMessage(
@@ -165,15 +185,12 @@ const onSubmit = (e: any) => {
   };
 
   return (
-    <>
-      <div className="col-span-2 flex flex-col h-150  w-full md:max-w-[80%] p-4 bg-white text-slate-900 border rounded-xl shadow-sm">
+  
+      <div className={cn( props.className , "flex flex-col h-150  p-4 bg-white text-slate-900 border rounded-xl shadow-sm md:h-full" ) }>
+        
         <div className="border-b pb-4 mb-4 flex justify-between items-center">
           <h1 className="text-xl font-semibold">Talk for help</h1>
-
-          
-        <DrawerNonModal name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false} data={youtubeData}/>
-          
-          
+        <DrawerNonModal  name={ (session)?  "Settings" : "Login"} login={ (session) ? true : false} data={youtubeData}/>
         </div>
 
         <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
@@ -207,30 +224,33 @@ const onSubmit = (e: any) => {
           )}
         </div>
 
-        <form onSubmit={onSubmit} className="flex gap-2 pt-2 border-t">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask something..."
-            className="flex-1 border border-slate-300 rounded-md p-3 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
-          />
 
-          <button
-            type="submit"
-            disabled={isLoading || !input.trim()}
-            className="bg-slate-900 text-white px-6 py-3 rounded-md font-medium hover:bg-slate-800 disabled:opacity-50 transition-colors"
-          >
-            Send
-          </button>
-        </form>
+<div className="min-w-0 w-full">
+  <form onSubmit={onSubmit} className="flex w-full gap-2 pt-2 border-t">
+    <input
+      value={input}
+      onChange={(e) => setInput(e.target.value)}
+      placeholder="Ask something..."
+      className="min-w-0 flex-1 border border-slate-300 rounded-md p-3 bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+    />
 
+    <button
+      type="submit"
+      disabled={isLoading || !input.trim()}
+      className="shrink-0 bg-slate-900 text-white px-6 py-3 rounded-md font-medium hover:bg-slate-800 disabled:opacity-50 transition-colors"
+    >
+      Send
+    </button>
+  </form>
+</div>
         {error && (
           <div className="p-3 mt-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
             Slow down! You hit the free tier rate limit. Please wait a minute
             before sending another message.
           </div>
         )}
+        
       </div>
-    </>
+      
   );
 };

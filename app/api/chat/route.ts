@@ -3,6 +3,7 @@ import { streamText, convertToModelMessages, tool, toUIMessageStream, createUIMe
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { chatTools } from "@/lib/chat-tools";
+import { stepCountIs } from "ai";
 
 export async function POST(req: Request) {
 
@@ -56,7 +57,7 @@ Rules:
 
 User Preferences:
 - ${hiddenContext}
-- If empty, ignore. You only have access to the channels the user is subscribed to, each channel's latest videos — no watch-time or engagement analytics of user or his subscribed channels.
+- If empty, ignore. chart can be defaulted and be zero, or mayne no. You only have access to the channels the user is subscribed to, each channel's latest videos — no watch-time or engagement analytics of user or his subscribed channels.
 `;
 
   const result = await streamText({
@@ -65,6 +66,7 @@ User Preferences:
     messages: await convertToModelMessages(messages),
     tools: chatTools,
 
+    stopWhen: stepCountIs(3),
 
     onFinish: (event) => {
       console.log("--- Token Usage ---");
@@ -73,6 +75,8 @@ User Preferences:
       console.log("Total Tokens:", event.usage.totalTokens);
       console.log("-------------------");
     },
+
+    
   });
 
   return createUIMessageStreamResponse({
