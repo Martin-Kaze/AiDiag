@@ -1,13 +1,20 @@
 'use client'
 
 import { Menubar, MenubarMenu } from "@/components/ui/menubar"
+
 import Link from "next/link"
+import { SidebarTrigger } from "../ui/sidebar"
+import { usePathname } from "next/navigation"
 
 export function Menu(  ) {
+
+  const pathname = usePathname()
+  const isDashboard = pathname.startsWith("/dashboard")
+
   return (
     <Menubar className="relative p-2 py-7 bg-white w-full rounded-none border-b shadow-sma">
       <MenubarMenu>
-
+     {isDashboard && <SidebarTrigger/>}
       </MenubarMenu>
       <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-xl font-bold uppercase">
         Wellness

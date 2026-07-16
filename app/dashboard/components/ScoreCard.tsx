@@ -1,11 +1,9 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts"
 import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { type RootState, AppDispatch } from "@/state/store"
-import { setChartReload } from "@/state/slices/UserInputSlice"
+import { useSelector} from "react-redux"
+import { type RootState } from "@/state/store"
 import { authClient } from "@/lib/auth-client"
 import {
     Card,
