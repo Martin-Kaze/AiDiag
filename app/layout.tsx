@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Script from "next/script";
 import { TooltipProvider } from "@/components/ui/tooltip"
 
+
 export const metadata = {
   title: "Wellness.chat",
   description: "Analyse your behaviour, social media, and daily patterns to help you become calmer, healthier and more at peace.",
@@ -45,13 +46,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           `}
         </Script>
       </head>
-      <body className="min-h-screen bg-stone-50 font-sans text-foreground">
+      <body className="min-h-screen bg-gray-50 font-sans text-foreground">
         <StoreProvider>
           <Suspense fallback={null} />
           <TooltipProvider>
-            <div className="fixed inset-y-0 left-0 z-50">
-            </div>
+      
             {children}
+           
           </TooltipProvider>
         </StoreProvider>
         <Toaster />
