@@ -26,7 +26,6 @@ export async function spendTokens(
   const result = await userTokens.updateOne(
     {
       userId,
-      tokens: { $gte: amount }, 
     },
     {
       $inc: {
