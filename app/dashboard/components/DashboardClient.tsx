@@ -13,6 +13,12 @@ import { useDispatch } from "react-redux";
 import { type AppDispatch } from "@/state/store";
 import { setChartReload } from "@/state/slices/UserInputSlice";
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarImage,
+} from "@/components/ui/avatar"
 
 
 type ChatMessage = UIMessage<unknown, UIDataTypes, ChatUITools>;
@@ -184,6 +190,7 @@ export const DashboardClient = (props: { className?: string }) => {
     setInput("");
   };
 
+  console.log(youtubeData)
   return (
 
 
@@ -194,6 +201,25 @@ export const DashboardClient = (props: { className?: string }) => {
 
         <div className="border-b pb-4 mb-4 flex justify-between items-center">
           <h1 className="text-xl font-semibold">Talk for help</h1>
+
+          
+           <AvatarGroup >
+      <Avatar>
+        <AvatarImage src={youtubeData?.subscriptions[0]?.snippet?.thumbnails?.default?.url} alt="@shadcn" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage src={youtubeData?.subscriptions[1]?.snippet?.thumbnails?.default?.url} alt="@maxleiter" />
+        <AvatarFallback>LR</AvatarFallback>
+      </Avatar>
+      <Avatar>
+        <AvatarImage
+          src={youtubeData?.subscriptions[2]?.snippet?.thumbnails?.default?.url}
+          alt="@evilrabbit"
+        />
+        <AvatarFallback>ER</AvatarFallback>
+      </Avatar>
+    </AvatarGroup>
         </div>
 
         <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
