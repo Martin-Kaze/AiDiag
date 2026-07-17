@@ -247,8 +247,7 @@ export const DashboardClient = (props: { className?: string }) => {
         </div>
         {error && (
           <div className="p-3 mt-4 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
-            Slow down! You hit the free tier rate limit. Please wait a minute
-            before sending another message.
+            Error: {error.message}
           </div>
         )}
 
