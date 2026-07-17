@@ -2,22 +2,12 @@
 import * as React from "react"
 import { GalleryVerticalEnd, BarChart3, SlidersHorizontal } from "lucide-react"
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-  SidebarFooter
-} from "@/components/ui/sidebar"
 import { Separator } from "@base-ui/react"
 import { ScoreCard } from "./ScoreCard"
 import { useEffect, useState } from "react"
 import { authClient } from "@/lib/auth-client"
+import { useRouter } from "next/navigation"
+
 import {
   Drawer,
   DrawerClose,
@@ -28,6 +18,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+
 import { Button } from "@/components/ui/button"
 import {
   InputGroup,
@@ -44,20 +35,28 @@ import {
 } from "@/components/ui/field"
 import {
   Dialog,
-  DialogClose,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+  SidebarFooter
+} from "@/components/ui/sidebar"
 
 import { useSidebar } from "@/components/ui/sidebar"
 import { X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { LoginForm } from "./login-form"
-import { Label } from "@/components/ui/label"
+
+
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -72,6 +71,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [isPending, setIsPending] = useState(true);
 
   const { toggleSidebar, isMobile } = useSidebar();
+  const router = useRouter();
+
+
+   async function logout() {
+    await authClient.signOut();
+    router.push("/");
+  }
 
   useEffect(() => {
     authClient.getSession().then(({ data }) => {
@@ -133,7 +139,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
           <Dialog>
 
-            <DialogTrigger render={<Button className="m-2 shadow"  variant="outline">Login</Button>} />
+            <DialogTrigger render={<Button className="m-2 shadow my-2"  variant="default">Login</Button>} />
             <DialogContent className="sm:max-w-sm">
               <LoginForm />
             </DialogContent>
@@ -269,7 +275,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
 
       </SidebarFooter>
-
+        {session ? <Button variant="default" className="shadow mb-3 mx-2" onClick={logout}>Logout</Button> : null}
       <SidebarRail />
     </Sidebar>
   )
