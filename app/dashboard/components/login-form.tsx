@@ -22,7 +22,7 @@ export function LoginForm() {
 
   return (
     <div >
-      <Card className="m-5">
+      <Card className="">
         <CardContent className="grid p-0 ">
           <form className="p-6 " onSubmit={(e) => e.preventDefault()}>
             <FieldGroup>
