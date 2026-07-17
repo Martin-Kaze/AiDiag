@@ -54,7 +54,6 @@ export const DashboardClient = (props: { className?: string }) => {
     return youtubeData ? Simplify_Channel(youtubeData) : null;
   }, [youtubeData]);
 
-  console.log(simplifiedYoutube);
 
 
   useEffect(() => {
@@ -190,7 +189,7 @@ export const DashboardClient = (props: { className?: string }) => {
     setInput("");
   };
 
-  console.log(youtubeData)
+
   return (
 
 
