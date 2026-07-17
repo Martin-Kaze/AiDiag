@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { chatTools } from "@/lib/chat-tools";
 import { stepCountIs } from "ai";
-
+import { ensureUser , getUserTokens, spendTokens} from "@/lib/ensureUser";
 export async function POST(req: Request) {
 
   const session = await auth.api.getSession({
@@ -15,30 +15,26 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
+  await ensureUser(session.user.id);
+
+  const tokens = await getUserTokens(session.user.id);
+
+  if (tokens <= 0) {
+  return new Response("No tokens left", {
+    status: 403,
+  });
+}
+
   const { messages , hiddenContext } = await req.json();
 
-  const size = JSON.stringify(messages).length;
-console.log(size);
+  const inputLength = JSON.stringify(messages).length;
 
-  const getMessageText = (m: any): string =>
-    m.parts
-      ?.filter((p: any) => p.type === "text")
-      ?.map((p: any) => p.text)
-      ?.join("") ?? m.content ?? "";
-
-  const lastMessage = messages.at(-1);
-
-  if (getMessageText(lastMessage).length > 4000) {
-    return new Response("Message too long", { status: 400 });
-  }
-
-  const totalChars = messages.reduce((acc: number, m: any) => {
-    return acc + getMessageText(m).length;
-  }, 0);
-
-  if (totalChars > 8000) {
-    return new Response("Conversation too long", { status: 400 });
-  }
+if (inputLength > 10000) {
+  return new Response("Message too large", {
+    status: 400,
+  });
+}
+  
 
  const system = `
 You are a wellness assistant. You analyze a user's social media habits (YouTube subscriptions, sometimes videos) and assess how healthy or unhealthy the pattern is, then suggest concrete ways to improve it.
@@ -74,6 +70,9 @@ User Preferences:
       console.log("Output:", event.usage.outputTokens);
       console.log("Total Tokens:", event.usage.totalTokens);
       console.log("-------------------");
+
+      spendTokens(session.user.id, (event.usage.totalTokens || 0) );
+
     },
 
     
