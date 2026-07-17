@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 
   const inputLength = JSON.stringify(messages).length;
 
-if (inputLength > 10000) {
+if (inputLength > 200000) {
   return new Response("Message too large", {
     status: 400,
   });
